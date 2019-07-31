@@ -7,3 +7,6 @@ C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\obj\Debug\netstandard2
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\obj\Debug\netstandard2.0\Tyres.Service.AssemblyInfo.cs
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\obj\Debug\netstandard2.0\Tyres.Service.dll
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\obj\Debug\netstandard2.0\Tyres.Service.pdb
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\bin\Debug\netstandard2.0\Tyres.Data.dll
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\bin\Debug\netstandard2.0\Tyres.Data.pdb
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\obj\Debug\netstandard2.0\Tyres.Service.csproj.CopyComplete

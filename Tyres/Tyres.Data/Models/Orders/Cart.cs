@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Tyres.Data.Models.Orders
 {
-    class Cart
+    public class Cart : BaseCart
     {
+        public List<CartItem> Items { get; set; } = new List<CartItem>();
     }
 }

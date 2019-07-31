@@ -264,6 +264,9 @@
         }
       },
       "Tyres.Service/1.0.0": {
+        "dependencies": {
+          "Tyres.Data": "1.0.0"
+        },
         "runtime": {
           "Tyres.Service.dll": {}
         },

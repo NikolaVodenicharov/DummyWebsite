@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tyres.Data;
 using Tyres.Data.Models;
+using Tyres.Web.Infrastructure.Extensions;
 
 namespace Tyres.Web
 {
@@ -48,6 +49,9 @@ namespace Tyres.Web
 
             services
                 .AddSession();
+
+            services
+                .AddDomainServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +76,9 @@ namespace Tyres.Web
             app.UseAuthentication();
 
             app.UseSession();
+
+            app.CreateDefaultRoles();
+            app.CreateDefaultAdministrator();
 
             app.UseMvc(routes =>
             {

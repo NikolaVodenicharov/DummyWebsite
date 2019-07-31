@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tyres.Data.Enums
+namespace Tyres.Data.Enums.TyreEnums
 {
     public enum Season
     {
