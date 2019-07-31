@@ -67,6 +67,7 @@ namespace Tyres.Data
                     Brand = brands[brandIndex],
                     Model = models[modelIndex],
                     Price = random.Next(100, 200),
+                    Quantity = random.Next(2, 30),
                     Width = (Width)widths.GetValue(widthIndex),
                     Ratio = (Ratio)ratios.GetValue(ratioIndex),
                     Diameter = (Diameter)diameters.GetValue(diameterIndex),

@@ -21,6 +21,8 @@ namespace Tyres.Products.Data.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
+        public int Quantity { get; set; }
+
         public Width Width { get; set; }
         public Ratio Ratio { get; set; }
         public Diameter Diameter { get; set; }

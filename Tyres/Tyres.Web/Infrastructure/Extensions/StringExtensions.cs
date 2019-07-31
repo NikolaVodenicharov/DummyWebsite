@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CameraBazaar2.Web.Infrastructure.Extensions
+﻿namespace Tyres.Web.Infrastructure.Extensions
 {
     public static class StringExtensions
     {

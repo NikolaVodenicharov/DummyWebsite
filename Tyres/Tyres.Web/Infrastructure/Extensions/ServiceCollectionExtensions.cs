@@ -1,23 +1,20 @@
-﻿using CameraBazaar2.Services.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
+using Tyres.Service.Implementations;
 
-namespace CameraBazaar2.Web.Infrastructure.Extensions
+namespace Tyres.Web.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// We create interface called <seealso cref="IService"/> in the Service assembly. So we can find and register 
+        /// We create interface called <seealso cref="AbstractService"/> in the Service assembly. So we can find and register 
         /// the services in the <seealso cref="IServiceCollection"/>.
         /// </summary>
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
             Assembly
-                .GetAssembly(typeof(IService))
+                .GetAssembly(typeof(AbstractService))
                 .GetTypes()
                 .Where(
                     t => t.IsClass && 

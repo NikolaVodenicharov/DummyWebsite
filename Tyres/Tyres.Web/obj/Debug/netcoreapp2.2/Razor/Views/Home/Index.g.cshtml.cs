@@ -23,8 +23,13 @@ using Tyres.Web.Models;
 
 #line default
 #line hidden
+#line 3 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
+using Tyres.Data.Models;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"99464617055fdb505bb0bb7fd91f9b14f7b0d030", @"/Views/Home/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"700acef63011ff66bd7e51137f078f68be130b39", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"55278693c5c406a611795575743b3efa08441c87", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

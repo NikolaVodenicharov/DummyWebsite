@@ -23,12 +23,8 @@ namespace Tyres.Web.Infrastructure.Extensions
 
                 foreach (var role in roles)
                 {
-
+                    CreateRole(role, roleManager);
                 }
-
-                CreateRole(Constants.Administrator, roleManager);
-                CreateRole(Constants.LoggedUser, roleManager);
-                CreateRole(Constants.Worker, roleManager);
             }
 
             return app;
@@ -60,7 +56,9 @@ namespace Tyres.Web.Infrastructure.Extensions
                     .Run(async () =>
                     {
                         var user = await userManager.FindByNameAsync(Constants.Administrator);
-                        if (user != null)
+
+                        var isAdminExist = user != null;
+                        if (isAdminExist)
                         {
                             return;
                         }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Tyres.Data.Seeder;
 using Tyres.Web.Models;
 
 namespace Tyres.Web.Controllers
@@ -13,7 +8,6 @@ namespace Tyres.Web.Controllers
     {
         public IActionResult Index()
         {
-            Seeder.Tyre();
             return View();
         }
 
