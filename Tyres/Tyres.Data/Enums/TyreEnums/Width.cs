@@ -6,6 +6,7 @@ namespace Tyres.Data.Enums.TyreEnums
 {
     public enum Width
     {
+        All,
         _135 = 135,
         _145 = 145,
         _155 = 155,

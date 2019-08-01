@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Tyres.Data.Enums.TyreEnums;
-using Tyres.Products.Data.Models;
+using Tyres.Service.Constants;
+using Tyres.Service.Models;
 
 namespace Tyres.Service.Interfaces
 {
     public interface ITyreService
     {
-        IEnumerable<Tyre> All(Width width, Ratio ration, Diameter diameter, Season season); // Brand ?
+        IEnumerable<TyreSummary> AllListing(Width width, Ratio ration, Diameter diameter, Season season, int page = PageConstants.DefaultPage);
     }
 }

@@ -6,6 +6,7 @@ namespace Tyres.Data.Enums.TyreEnums
 {
     public enum Diameter
     {
+        All,
         _13 = 13,
         _14 = 14,
         _15 = 15,

@@ -1,0 +1,32 @@
+﻿@model TyreSearch
+@{
+    ViewData["Title"] = "Search for tyre";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Width"></label>
+                <select asp-for="Width" asp-items="@Model.Widths" class="form-control">Width</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ratio"></label>
+                <select asp-for="Ratio" asp-items="@Model.Ratios" class="form-control">Ratio</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Diameter"></label>
+                <select asp-for="Diameter" asp-items="@Model.Diameters" class="form-control">Diameter</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Season"></label>
+                <select asp-for="Season" asp-items="@Model.Seasons" class="form-control">Season</select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</div>

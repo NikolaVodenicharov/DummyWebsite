@@ -6,6 +6,7 @@ namespace Tyres.Data.Enums.TyreEnums
 {
     public enum Season
     {
+        All,
         Summer,
         Winter,
         AllSeason

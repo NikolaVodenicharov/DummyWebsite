@@ -6,6 +6,7 @@ namespace Tyres.Data.Enums.TyreEnums
 {
     public enum Ratio
     {
+        All,
         _20 = 20,
         _25 = 25,
         _30 = 30,

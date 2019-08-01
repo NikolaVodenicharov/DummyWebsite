@@ -80,7 +80,7 @@ namespace Tyres.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Tyre}/{action=Search}/{id?}");
             });
         }
     }
