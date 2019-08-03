@@ -7,7 +7,7 @@ using Tyres.Data.Enums.TyreEnums;
 
 namespace Tyres.Web.Models.Tyres
 {
-    public class TyreSearch
+    public class TyreSearchForm
     {
         public Width Width { get; set; }
         public List<SelectListItem> Widths { get; set; }

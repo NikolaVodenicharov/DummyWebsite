@@ -6,7 +6,8 @@ namespace Tyres.Service.Constants
 {
     public static class PageConstants
     {
-        public const int PageSize = 20;
+        // TODO: test with not full row elements in the for displayed tyres
+        public const int PageSize = 16;
         public const int DefaultPage = 1;
     }
 }

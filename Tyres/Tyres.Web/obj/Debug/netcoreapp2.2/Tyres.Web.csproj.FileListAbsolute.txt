@@ -34,4 +34,6 @@ C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Ty
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.csproj.CopyComplete
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.dll
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.pdb
-C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Views\Tyre\Search.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Views\Tyre\_TyreSearch.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Views\Tyre\Index.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Views\Tyre\All.g.cshtml.cs

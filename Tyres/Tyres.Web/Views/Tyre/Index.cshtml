@@ -1,0 +1,9 @@
+﻿@model TyreSearchForm
+@{
+    ViewData["Title"] = "Search for tyre";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+
+@await  Html.PartialAsync("~/Views/Tyre/_TyreSearch.cshtml", Model)

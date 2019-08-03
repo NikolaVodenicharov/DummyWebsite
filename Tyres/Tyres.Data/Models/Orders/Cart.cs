@@ -6,6 +6,6 @@ namespace Tyres.Data.Models.Orders
 {
     public class Cart : BaseCart
     {
-        public List<CartItem> Items { get; set; } = new List<CartItem>();
+        public IEnumerable<CartItem> Items { get; set; } = new List<CartItem>();
     }
 }

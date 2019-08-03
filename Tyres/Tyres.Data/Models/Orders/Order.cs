@@ -11,6 +11,6 @@ namespace Tyres.Data.Models.Orders
 
         public DateTime Date { get; set; } = DateTime.UtcNow;
 
-        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+        public IEnumerable<OrderItem> Items { get; set; } = new List<OrderItem>();
     }
 }

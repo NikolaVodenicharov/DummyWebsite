@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Service.Interfaces;
+using Tyres.Service.Models;
+using Tyres.Web.Models;
 using Tyres.Web.Models.Tyres;
 
 namespace Tyres.Web.Controllers
@@ -18,33 +20,30 @@ namespace Tyres.Web.Controllers
             this.tyreService = tyreService;
         }
 
-        public IActionResult Search()
+        public IActionResult Index()
         {
-            //var widths = new SelectList(Enum.GetValues(typeof(Width))
-            //    .Cast<Width>()
-            //    .Select(v => new SelectListItem
-            //    {
-            //        Text = v.ToString(),
-            //        Value = = ((int)v).ToString()
-            //    })
-            //    .ToList(), "Text", "Value");
-
-            var model = new TyreSearch
-            {
-                Widths = GetEnumValues<Width>(),
-                Ratios = GetEnumValues<Ratio>(),
-                Diameters = GetEnumValues<Diameter>(),
-                Seasons = GetEnumNamesValues<Season>(),
-            };
- 
+            var model = this.GenerateTyreSearchForm();
             return View(model);
         }
+
+        private TyreSearchForm GenerateTyreSearchForm ()
+        {
+            return new TyreSearchForm
+            {
+                Widths = GetEnumValuesItems<Width>(),
+                Ratios = GetEnumValuesItems<Ratio>(),
+                Diameters = GetEnumValuesItems<Diameter>(),
+                Seasons = GetEnumNamesValuesItems<Season>(),
+            };
+        }
+
+        // TODO: move these 2 methods in to the service ?
 
         /// <summary>
         /// Making Collection of SelectListItem from enumeration taking only the values. 
         /// If the name of first element is "All" takeFirstElementName = true. Else takeFirstElementName = false.
         /// </summary>
-        private List<SelectListItem> GetEnumValues<T>(bool takeFirstElementName = true) where T : Enum
+        private List<SelectListItem> GetEnumValuesItems<T>(bool takeFirstElementName = true) where T : Enum
         {
             var items = new List<SelectListItem>();
 
@@ -77,7 +76,7 @@ namespace Tyres.Web.Controllers
             return items;
         }
 
-        private List<SelectListItem> GetEnumNamesValues<T>() where T : Enum
+        private List<SelectListItem> GetEnumNamesValuesItems<T>() where T : Enum
         {
             var items = new List<SelectListItem>();
 
@@ -95,12 +94,30 @@ namespace Tyres.Web.Controllers
             return items;
         }
 
-        [HttpPost]
-        public IActionResult Search(TyreSearch model)
+        public IActionResult All(TyreSearchForm model, int page = 1)
         {
-            var listedTyres = this.tyreService.AllListing(model.Width, model.Ratio, model.Diameter, model.Season);
+            var tyreSearchForm = this.GenerateTyreSearchForm();
+            tyreSearchForm.Widths.Where(i => i.Value == ((int)model.Width).ToString()).FirstOrDefault().Selected = true;
+            tyreSearchForm.Ratios.Where(i => i.Value == ((int)model.Ratio).ToString()).FirstOrDefault().Selected = true;
+            tyreSearchForm.Diameters.Where(i => i.Value == ((int)model.Diameter).ToString()).FirstOrDefault().Selected = true;
+            tyreSearchForm.Seasons.Where(i => i.Value == ((int)model.Season).ToString()).FirstOrDefault().Selected = true;
 
-            return View();
+            var tyresPage = new TyresPageView
+            {
+                Page = page,
+                PagesCount = this.tyreService.GetPagesCount(model.Width, model.Ratio, model.Diameter, model.Season),
+                Elements = this.tyreService.GetAllListing(model.Width, model.Ratio, model.Diameter, model.Season, page),
+                Search = tyreSearchForm //this.GenerateTyreSearchForm()
+            };
+
+            //var tyresPage = new PageView<TyreSummary>
+            //{
+            //    Page = page,
+            //    PagesCount = this.tyreService.GetPagesCount(model.Width, model.Ratio, model.Diameter, model.Season),
+            //    Elements = this.tyreService.GetAllListing(model.Width, model.Ratio, model.Diameter, model.Season, page)
+            //};
+
+            return View(tyresPage);
         }
     }
 }

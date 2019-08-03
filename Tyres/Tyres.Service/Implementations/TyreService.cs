@@ -7,6 +7,7 @@ using Tyres.Products.Data.Models;
 using Tyres.Service.Constants;
 using Tyres.Service.Interfaces;
 using Tyres.Service.Models;
+using static Tyres.Service.Constants.PageConstants;
 
 namespace Tyres.Service.Implementations
 {
@@ -17,7 +18,42 @@ namespace Tyres.Service.Implementations
         {
         }
 
-        public IEnumerable<TyreSummary> AllListing(Width width, Ratio ratio, Diameter diameter, Season season, int page = PageConstants.DefaultPage)
+        public IEnumerable<TyreSummary> GetAllListing(Width width, Ratio ratio, Diameter diameter, Season season, int page = DefaultPage)
+        {
+            var tyresQuery = this.CreateQueryByParameters(width, ratio, diameter, season);
+
+            var listedTyres = tyresQuery
+                .OrderBy(t => t.Price)
+                .Skip(PageSize * (page - 1))
+                .Take(PageSize)
+                .Select(t => new TyreSummary
+                {
+                    Id = t.Id,
+                    Brand = t.Brand,
+                    Model = t.Model,
+                    Price = t.Price,
+                    Width = (int)t.Width,
+                    Ratio = (int)t.Ratio,
+                    Diameter = (int)t.Diameter,
+                    Season = t.Season.ToString()
+                })
+                .ToList();
+
+            return listedTyres;
+        }
+
+        public int GetPagesCount (Width width, Ratio ratio, Diameter diameter, Season season)
+        {
+            var tyresQuery = this.CreateQueryByParameters(width, ratio, diameter, season);
+            var tyresCountByParameters = tyresQuery.Count();
+
+            var pages = (int)Math.Ceiling(
+                (double)tyresCountByParameters / PageSize);
+
+            return pages;
+        }
+
+        private IQueryable<Tyre> CreateQueryByParameters (Width width, Ratio ratio, Diameter diameter, Season season)
         {
             var tyresQuery = base.db
                 .Tyres
@@ -40,24 +76,7 @@ namespace Tyres.Service.Implementations
                 tyresQuery = tyresQuery.Where(t => t.Season == season);
             }
 
-            var listedTyres = tyresQuery
-                .OrderBy(t => t.Price)
-                .Skip(PageConstants.PageSize * (page - 1))
-                .Take(PageConstants.PageSize)
-                .Select(t => new TyreSummary
-                {
-                    Id = t.Id,
-                    Brand = t.Brand,
-                    Model = t.Model,
-                    Price = t.Price,
-                    Width = t.Width,
-                    Ratio = t.Ratio,
-                    Diameter = t.Diameter,
-                    Season = t.Season
-                })
-                .ToList();
-
-            return listedTyres;
+            return tyresQuery;
         }
     }
 }

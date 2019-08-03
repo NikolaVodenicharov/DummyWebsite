@@ -15,12 +15,12 @@ namespace Tyres.Service.Models
 
         public decimal Price { get; set; }
 
-        public Width Width { get; set; }
+        public int Width { get; set; }
 
-        public Ratio Ratio { get; set; }
+        public int Ratio { get; set; }
 
-        public Diameter Diameter { get; set; }
+        public int Diameter { get; set; }
 
-        public Season Season { get; set; }
+        public string Season { get; set; }
     }
 }

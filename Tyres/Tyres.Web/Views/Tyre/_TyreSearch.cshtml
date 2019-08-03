@@ -1,14 +1,8 @@
-﻿@model TyreSearch
-@{
-    ViewData["Title"] = "Search for tyre";
-}
-
-<h1>@ViewData["Title"]</h1>
-<br />
+﻿@model TyreSearchForm
 
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form asp-controller="Tyre" asp-action="All">
             <div class="form-group">
                 <label asp-for="Width"></label>
                 <select asp-for="Width" asp-items="@Model.Widths" class="form-control">Width</select>
