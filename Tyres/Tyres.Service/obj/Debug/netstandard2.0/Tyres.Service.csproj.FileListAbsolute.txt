@@ -10,3 +10,5 @@ C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\obj\Debug\netstandard2
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\bin\Debug\netstandard2.0\Tyres.Data.dll
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\bin\Debug\netstandard2.0\Tyres.Data.pdb
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\obj\Debug\netstandard2.0\Tyres.Service.csproj.CopyComplete
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\bin\Debug\netstandard2.0\Tyres.Shared.dll
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Service\bin\Debug\netstandard2.0\Tyres.Shared.pdb

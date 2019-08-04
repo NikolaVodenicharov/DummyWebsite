@@ -1,4 +1,5 @@
-﻿using Tyres.Service.Models;
+﻿using System.Collections.Generic;
+using Tyres.Service.Models;
 
 namespace Tyres.Web.Models.Tyres
 {

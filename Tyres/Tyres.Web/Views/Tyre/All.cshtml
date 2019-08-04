@@ -11,8 +11,7 @@
 <br />
 
 @{
-    var listed = Model.Elements.ToList();
-    var count = listed.Count;
+    var count = Model.Elements.Count;
     var boxAtRow = 3;
 }
 
@@ -23,7 +22,7 @@
         {
             <div class="card border-primary" style="max-width: 20rem;" onmouseover="grayBackground(this)" onmouseout="whiteBackground(this)">
                 <div class="card-header bg-transparent border-primary text-center">
-                    @listed[j].Brand @listed[j].Model
+                    @Model.Elements[j].Brand @Model.Elements[j].Model
                 </div>
 
                 <div class="card-body">
@@ -31,14 +30,14 @@
                         <img src="~/img/TyreDummy.png" width="150" height="150" />
                     </div>
                     <div class="text-right">
-                        <p class="card-text">$@(listed[j].Price.ToMoney())</p>
-                        <p class="card-text">@listed[j].Width/@listed[j].Ratio/@listed[j].Diameter</p>
-                        <p class="card-text">@listed[j].Season</p>
+                        <p class="card-text">$@(Model.Elements[j].Price.ToMoney())</p>
+                        <p class="card-text">@Model.Elements[j].Width/@Model.Elements[j].Ratio/@Model.Elements[j].Diameter</p>
+                        <p class="card-text">@Model.Elements[j].Season</p>
                     </div>
                 </div>
 
                 <div class="card-footer bg-transparent border-primary">
-                    <a class="btn btn-primary" href="/Cameras/Details/@listed[j].Id">Details</a>
+                    <a class="btn btn-primary" asp-controller="Tyre" asp-action="Details" asp-route-id="@Model.Elements[j].Id">Details</a>
                 </div>
             </div>
         }
@@ -54,7 +53,7 @@
 <nav aria-label="Page navigation example" style="text-align: center">
     <ul class="pagination pagination-lg">
         <li class="page-item @disablePrevious">
-            <a class="page-link" href="/cars/all?page=@Model.PreviousPage">Previous</a>
+            <a class="page-link" href="/Tyre/all?page=@Model.PreviousPage">Previous</a>
         </li>
 
         <li class="page-item active">
@@ -62,7 +61,7 @@
         </li>
 
         <li class="page-item @disableNext">
-            <a class="page-link" href="/cars/all?page=@Model.NextPage">Next</a>
+            <a class="page-link" href="/Tyre/all?page=@Model.NextPage">Next</a>
         </li>
     </ul>
 </nav>

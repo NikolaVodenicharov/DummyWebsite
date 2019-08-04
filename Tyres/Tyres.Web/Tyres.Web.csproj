@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Tyres.Data\Tyres.Data.csproj" />
     <ProjectReference Include="..\Tyres.Service\Tyres.Service.csproj" />
+    <ProjectReference Include="..\Tyres.Shared\Tyres.Shared.csproj" />
   </ItemGroup>
 
 </Project>

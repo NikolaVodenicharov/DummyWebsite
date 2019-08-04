@@ -16,6 +16,6 @@ namespace Tyres.Web.Models
         public bool HasNext => this.Page < PagesCount;
         public int NextPage => this.Page + 1;
 
-        public IEnumerable<T> Elements { get; set; }
+        public IList<T> Elements { get; set; }
     }
 }

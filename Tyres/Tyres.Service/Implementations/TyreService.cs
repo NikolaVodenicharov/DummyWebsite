@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Tyres.Data;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Products.Data.Models;
@@ -13,9 +14,26 @@ namespace Tyres.Service.Implementations
 {
     public class TyreService : AbstractService, ITyreService
     {
-        public TyreService(TyresDbContext db) 
-            : base(db)
+        public TyreService(TyresDbContext db, IMapper mapper) 
+            : base(db, mapper)
         {
+        }
+
+        public TyreDetails Get(int id)
+        {
+            var tyre = base.db
+                .Tyres
+                .Find(id);
+
+            if (tyre == null)
+            {
+                return null;
+            }
+
+            var model = base.mapper
+                .Map<TyreDetails>(tyre);
+
+            return model;
         }
 
         public IEnumerable<TyreSummary> GetAllListing(Width width, Ratio ratio, Diameter diameter, Season season, int page = DefaultPage)

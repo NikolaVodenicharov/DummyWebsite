@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tyres.Data\Tyres.Data.csproj" />
-    <ProjectReference Include="..\Tyres.Shared\Tyres.Shared.csproj" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
   </ItemGroup>
 
 </Project>

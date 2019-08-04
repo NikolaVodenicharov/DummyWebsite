@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Tyres.Data;
 using Tyres.Data.Models;
 using Tyres.Web.Infrastructure.Extensions;
+using Tyres.Shared.Mappings;
 
 namespace Tyres.Web
 {
@@ -50,6 +51,9 @@ namespace Tyres.Web
 
             services
                 .AddDomainServices();
+
+            services
+                .AddAutoMapperProfile();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -10,16 +10,16 @@ namespace Tyres.Web.Models.Tyres
     public class TyreSearchForm
     {
         public Width Width { get; set; }
-        public List<SelectListItem> Widths { get; set; }
+        public IEnumerable<SelectListItem> Widths { get; set; }
 
         public Ratio Ratio { get; set; }
-        public List<SelectListItem> Ratios { get; set; }
+        public IEnumerable<SelectListItem> Ratios { get; set; }
 
         public Diameter Diameter { get; set; }
-        public List<SelectListItem> Diameters { get; set; }
+        public IEnumerable<SelectListItem> Diameters { get; set; }
 
         public Season Season { get; set; }
-        public List<SelectListItem> Seasons { get; set; }
+        public IEnumerable<SelectListItem> Seasons { get; set; }
 
     }
 }

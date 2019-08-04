@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Service.Interfaces;
 using Tyres.Service.Models;
@@ -26,14 +28,14 @@ namespace Tyres.Web.Controllers
             return View(model);
         }
 
-        private TyreSearchForm GenerateTyreSearchForm ()
+        private TyreSearchForm GenerateTyreSearchForm (Width selectedWidth = 0, Ratio selectedRatio = 0, Diameter selectedDiameter = 0, Season selectedSeason = 0)
         {
             return new TyreSearchForm
             {
-                Widths = GetEnumValuesItems<Width>(),
-                Ratios = GetEnumValuesItems<Ratio>(),
-                Diameters = GetEnumValuesItems<Diameter>(),
-                Seasons = GetEnumNamesValuesItems<Season>(),
+                Widths = GetEnumValuesItems<Width>(selectedWidth),
+                Ratios = GetEnumValuesItems<Ratio>(selectedRatio),
+                Diameters = GetEnumValuesItems<Diameter>(selectedDiameter),
+                Seasons = GetEnumNamesValuesItems<Season>(selectedSeason)
             };
         }
 
@@ -41,52 +43,64 @@ namespace Tyres.Web.Controllers
 
         /// <summary>
         /// Making Collection of SelectListItem from enumeration taking only the values. 
+        /// We have to set what is the default selected value.
         /// If the name of first element is "All" takeFirstElementName = true. Else takeFirstElementName = false.
         /// </summary>
-        private List<SelectListItem> GetEnumValuesItems<T>(bool takeFirstElementName = true) where T : Enum
+        private List<SelectListItem> GetEnumValuesItems<T>(T selected, bool requireFirstElementName = true) where T : Enum
         {
-            var items = new List<SelectListItem>();
+            var enumElements = Enum.GetValues(typeof(T));
+            var items = new List<SelectListItem>(enumElements.Length);
 
-            foreach (var element in Enum.GetValues(typeof(T)))
+            var isFirstElement = true;
+            var isSearchingSelectedItem = true;
+
+            foreach (var element in enumElements)
             {
                 var enumValue = ((int)element).ToString();
 
-                items.Add(new SelectListItem
-                    {
-                        Text = enumValue,
-                        Value = enumValue,
-                    });
-            }
-
-            if (takeFirstElementName && items.Count > 0)
-            {
-                var enumValue = int.MinValue;
-
-                var isSuccessful = int.TryParse(
-                    items.First().Value, 
-                    out enumValue);
-
-                if (isSuccessful)
+                var item = new SelectListItem
                 {
-                    var name = Enum.GetName(typeof(T), enumValue);
-                    items.First().Text = name;
+                    Text = enumValue,
+                    Value = enumValue,
+                };
+
+                if (isFirstElement && requireFirstElementName)
+                {
+                    item.Text = element.ToString();
+                    isFirstElement = false;
                 }
-            }
+
+                if (isSearchingSelectedItem && selected.Equals(element))
+                {
+                    item.Selected = true;
+                    isSearchingSelectedItem = false;
+                }
+
+                items.Add(item);
+            }         
 
             return items;
         }
 
-        private List<SelectListItem> GetEnumNamesValuesItems<T>() where T : Enum
+        private List<SelectListItem> GetEnumNamesValuesItems<T>(T selected) where T : Enum
         {
-            var items = new List<SelectListItem>();
+            var enumElements = Enum.GetValues(typeof(T));
+            var items = new List<SelectListItem>(enumElements.Length);
+            var isSearchingSelectedItem = true;
 
-            foreach (var element in Enum.GetValues(typeof(T)))
+            foreach (var element in enumElements)
             {
                 var item = new SelectListItem
                 {
                     Text = element.ToString(),
                     Value = ((int)element).ToString(),
                 };
+
+                if (isSearchingSelectedItem && selected.Equals(element))
+                {
+                    item.Selected = true;
+                    isSearchingSelectedItem = false;
+                }
 
                 items.Add(item);
             }
@@ -96,28 +110,23 @@ namespace Tyres.Web.Controllers
 
         public IActionResult All(TyreSearchForm model, int page = 1)
         {
-            var tyreSearchForm = this.GenerateTyreSearchForm();
-            tyreSearchForm.Widths.Where(i => i.Value == ((int)model.Width).ToString()).FirstOrDefault().Selected = true;
-            tyreSearchForm.Ratios.Where(i => i.Value == ((int)model.Ratio).ToString()).FirstOrDefault().Selected = true;
-            tyreSearchForm.Diameters.Where(i => i.Value == ((int)model.Diameter).ToString()).FirstOrDefault().Selected = true;
-            tyreSearchForm.Seasons.Where(i => i.Value == ((int)model.Season).ToString()).FirstOrDefault().Selected = true;
+            var tyreSearchForm = this.GenerateTyreSearchForm(model.Width, model.Ratio, model.Diameter, model.Season);
 
             var tyresPage = new TyresPageView
             {
                 Page = page,
                 PagesCount = this.tyreService.GetPagesCount(model.Width, model.Ratio, model.Diameter, model.Season),
-                Elements = this.tyreService.GetAllListing(model.Width, model.Ratio, model.Diameter, model.Season, page),
-                Search = tyreSearchForm //this.GenerateTyreSearchForm()
+                Elements = this.tyreService.GetAllListing(model.Width, model.Ratio, model.Diameter, model.Season, page).ToList(),
+                Search = tyreSearchForm
             };
 
-            //var tyresPage = new PageView<TyreSummary>
-            //{
-            //    Page = page,
-            //    PagesCount = this.tyreService.GetPagesCount(model.Width, model.Ratio, model.Diameter, model.Season),
-            //    Elements = this.tyreService.GetAllListing(model.Width, model.Ratio, model.Diameter, model.Season, page)
-            //};
-
             return View(tyresPage);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var model = this.tyreService.Get(id);
+            return View(model);
         }
     }
 }
