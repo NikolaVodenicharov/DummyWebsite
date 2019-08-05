@@ -1,0 +1,29 @@
+﻿@model IList<UserSummary>
+
+@{
+    ViewData["Title"] = "Listed all users";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-bordered table-hover table-dark table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 1; i <= Model.Count(); i++)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@Model[i - 1].UserName</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@(Model[i -1].Id)">Detalis</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

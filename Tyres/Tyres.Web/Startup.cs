@@ -36,9 +36,16 @@ namespace Tyres.Web
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services
-                .AddIdentity<User, IdentityRole>()
+                .AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                })
                 .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<TyresDbContext>();
+                .AddEntityFrameworkStores<TyresDbContext>()
+                .AddDefaultTokenProviders();
 
             services
                 .AddMvc(options => options
@@ -82,6 +89,11 @@ namespace Tyres.Web
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                  name: "areas",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Tyre}/{action=Index}/{id?}");

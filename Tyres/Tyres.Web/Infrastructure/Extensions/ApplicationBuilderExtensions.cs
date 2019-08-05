@@ -71,9 +71,12 @@ namespace Tyres.Web.Infrastructure.Extensions
 
                         user = new User
                         {
-                            UserName = Constants.Administrator,
+                            UserName = $"{Constants.Administrator}@gmail.com",
                             Email = $"{Constants.Administrator}@gmail.com",
-                            PhoneNumber = "+123456123456"
+                            PhoneNumber = "+123456123456",
+                            FirstName = "John",
+                            LastName = "Doe",
+                            DeliveryAddress = "None"
                         };
 
                         var result = await userManager.CreateAsync(user, "admin123");

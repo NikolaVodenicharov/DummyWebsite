@@ -29,27 +29,32 @@ using Tyres.Web.Models.Tyres;
 #line default
 #line hidden
 #line 4 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
-using Tyres.Web.Infrastructure.Extensions;
+using Tyres.Web.Infrastructure;
 
 #line default
 #line hidden
 #line 5 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
-using Tyres.Data.Models;
-
-#line default
-#line hidden
-#line 6 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
-using Tyres.Data.Enums.TyreEnums;
+using Tyres.Web.Infrastructure.Extensions;
 
 #line default
 #line hidden
 #line 7 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
+using Tyres.Data.Models;
+
+#line default
+#line hidden
+#line 8 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
+using Tyres.Data.Enums.TyreEnums;
+
+#line default
+#line hidden
+#line 10 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
 using Tyres.Service.Models;
 
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d6a5625cc8fb4476f348b0fe9041c550465d8bf9", @"/Views/Shared/Error.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d3902a756d57577c1fec429544fe0fae2a4b0d09", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9b918115e2a3b5764e047f04e16155f50d7e6d03", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Error : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ErrorViewModel>
     {
         #pragma warning disable 1998

@@ -18,7 +18,7 @@ namespace Tyres.Web
         {
             var host = CreateWebHostBuilder(args).Build();
 
-            TestDatabaseGenerator(host);
+            DatabaseGenerator(host);
 
             host.Run();
         }
@@ -27,7 +27,7 @@ namespace Tyres.Web
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
 
-        public static void TestDatabaseGenerator(IWebHost host)
+        public static void DatabaseGenerator(IWebHost host)
         {
             using (var scope = host.Services.CreateScope())
             {

@@ -29,12 +29,26 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Tyre" asp-action="Home">Tyre</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tyre" asp-action="Index">Tyre</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+                        @if (User.IsInRole(Constants.Administrator))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Administrator
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Administrator" asp-action="AllUsers">All users</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
+
+
                 </div>
             </div>
         </nav>

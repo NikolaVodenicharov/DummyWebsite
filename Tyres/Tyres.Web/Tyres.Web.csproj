@@ -4,6 +4,11 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>aspnet-Tyres.Web-1041D254-30C6-4277-B289-526A723C4518</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
 
@@ -18,6 +23,15 @@
     <ProjectReference Include="..\Tyres.Data\Tyres.Data.csproj" />
     <ProjectReference Include="..\Tyres.Service\Tyres.Service.csproj" />
     <ProjectReference Include="..\Tyres.Shared\Tyres.Shared.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Workers\Controllers\" />
+    <Folder Include="Areas\Workers\Data\" />
+    <Folder Include="Areas\Workers\Models\" />
+    <Folder Include="Areas\Workers\Views\" />
   </ItemGroup>
 
 </Project>

@@ -29,21 +29,26 @@ using Tyres.Web.Models.Tyres;
 #line default
 #line hidden
 #line 4 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
-using Tyres.Web.Infrastructure.Extensions;
+using Tyres.Web.Infrastructure;
 
 #line default
 #line hidden
 #line 5 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
-using Tyres.Data.Models;
-
-#line default
-#line hidden
-#line 6 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
-using Tyres.Data.Enums.TyreEnums;
+using Tyres.Web.Infrastructure.Extensions;
 
 #line default
 #line hidden
 #line 7 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
+using Tyres.Data.Models;
+
+#line default
+#line hidden
+#line 8 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
+using Tyres.Data.Enums.TyreEnums;
+
+#line default
+#line hidden
+#line 10 "C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\Views\_ViewImports.cshtml"
 using Tyres.Service.Models;
 
 #line default
@@ -54,7 +59,7 @@ using Microsoft.AspNetCore.Http.Features;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d4fdc3d9e6bc2a119e86fb23894c311b8c5abaf6", @"/Views/Shared/_CookieConsentPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d3902a756d57577c1fec429544fe0fae2a4b0d09", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9b918115e2a3b5764e047f04e16155f50d7e6d03", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__CookieConsentPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-area", "", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -106,7 +111,7 @@ using Microsoft.AspNetCore.Http.Features;
             WriteLiteral("    <div id=\"cookieConsent\" class=\"alert alert-info alert-dismissible fade show\" role=\"alert\">\r\n        Use this space to summarize your privacy and cookie use policy. ");
             EndContext();
             BeginContext(439, 72, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d4fdc3d9e6bc2a119e86fb23894c311b8c5abaf66022", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d4fdc3d9e6bc2a119e86fb23894c311b8c5abaf66178", async() => {
                 BeginContext(497, 10, true);
                 WriteLiteral("Learn More");
                 EndContext();
