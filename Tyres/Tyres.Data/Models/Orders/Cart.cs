@@ -4,8 +4,13 @@ using System.Text;
 
 namespace Tyres.Data.Models.Orders
 {
-    public class Cart : BaseCart
+    public class Cart
     {
-        public IEnumerable<CartItem> Items { get; set; } = new List<CartItem>();
+        public int Id { get; set; }
+
+        public User User { get; set; }
+        public string UserId { get; set; }
+
+        public IEnumerable<Item> Items { get; set; } = new List<Item>();
     }
 }

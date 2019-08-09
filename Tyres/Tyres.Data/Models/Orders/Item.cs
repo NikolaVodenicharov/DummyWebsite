@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Tyres.Data.Models.Orders
 {
-    public abstract class BaseItem
+    public class Item
     {
-        public int ItemId { get; set; }
+        public int Id { get; set; }
 
         public int ProductId { get; set; }
 
@@ -16,8 +16,17 @@ namespace Tyres.Data.Models.Orders
         public string ProductName { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
+        [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
+        [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
+
+
+        public Order Order { get; set; }
+        public int OrderId { get; set; }
+
+        public Cart Cart { get; set; }
+        public int CartId { get; set; }
     }
 }

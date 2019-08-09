@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Tyres.Data.Enums.TyreEnums;
+using Tyres.Data.Models.Products;
 using Tyres.Products.Data.Models;
 
 namespace Tyres.Data
@@ -50,10 +51,9 @@ namespace Tyres.Data
             #endregion
 
             var random = new Random();
-
             var tyres = new List<Tyre>();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 var brandIndex = random.Next(brands.Length);
                 var modelIndex = random.Next(models.Length);

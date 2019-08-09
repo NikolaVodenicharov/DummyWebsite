@@ -4145,11 +4145,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Service\\Tyres.Service.csproj",
+      "projectUniqueName": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Service\\Tyres.Service.csproj",
       "projectName": "Tyres.Service",
-      "projectPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Service\\Tyres.Service.csproj",
+      "projectPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Service\\Tyres.Service.csproj",
       "packagesPath": "C:\\Users\\WorkStation\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Service\\obj\\",
+      "outputPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Service\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4168,11 +4168,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Data\\Tyres.Data.csproj": {
-              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Data\\Tyres.Data.csproj"
+            "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Data\\Tyres.Data.csproj": {
+              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Data\\Tyres.Data.csproj"
             },
-            "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Shared\\Tyres.Shared.csproj": {
-              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Shared\\Tyres.Shared.csproj"
+            "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Shared\\Tyres.Shared.csproj": {
+              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Shared\\Tyres.Shared.csproj"
             }
           }
         }

@@ -16,8 +16,7 @@ namespace Tyres.Data
         public DbSet<Tyre> Tyres { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartItem> CartItems { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Item> Items { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -25,9 +24,13 @@ namespace Tyres.Data
 
             builder
                 .Entity<User>()
-                .HasOne(u => u.Cart)
+                .HasOne<Cart>(u => u.Cart)
                 .WithOne(c => c.User)
                 .HasForeignKey<Cart>(c => c.UserId);
+
+            builder
+                .Entity<Cart>()
+                .HasKey(c => c.Id);
 
             builder
                 .Entity<Order>()
@@ -35,25 +38,22 @@ namespace Tyres.Data
                 .WithMany(u => u.Orders)
                 .HasForeignKey(o => o.UserId);
 
-            builder
-                .Entity<CartItem>()
-                .HasKey(c => c.ItemId);
 
             builder
-                .Entity<CartItem>()
-                .HasOne(ci => ci.Cart)
+                .Entity<Item>()
+                .HasKey(c => c.Id);
+
+            builder
+                .Entity<Item>()
+                .HasOne(i => i.Cart)
                 .WithMany(c => c.Items)
-                .HasForeignKey(ci => ci.CartId);
+                .HasForeignKey(i => i.CartId);
 
             builder
-                .Entity<OrderItem>()
-                .HasKey(o => o.ItemId);
-
-            builder
-                .Entity<OrderItem>()
-                .HasOne(oi => oi.Order)
+                .Entity<Item>()
+                .HasOne(i => i.Order)
                 .WithMany(o => o.Items)
-                .HasForeignKey(oi => oi.OrderId);
+                .HasForeignKey(i => i.OrderId);
         }
     }
 }

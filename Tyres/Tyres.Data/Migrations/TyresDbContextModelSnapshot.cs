@@ -9,7 +9,7 @@ using Tyres.Data;
 namespace Tyres.Data.Migrations
 {
     [DbContext(typeof(TyresDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    partial class TyresDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -131,8 +131,9 @@ namespace Tyres.Data.Migrations
 
             modelBuilder.Entity("Tyres.Data.Models.Orders.Cart", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("UserId");
 
@@ -145,13 +146,15 @@ namespace Tyres.Data.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("Tyres.Data.Models.Orders.CartItem", b =>
+            modelBuilder.Entity("Tyres.Data.Models.Orders.Item", b =>
                 {
-                    b.Property<int>("ItemId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CartId");
+                    b.Property<int>("CartId");
+
+                    b.Property<int>("OrderId");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -163,17 +166,20 @@ namespace Tyres.Data.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.HasKey("ItemId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("CartItems");
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Tyres.Data.Models.Orders.Order", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Date");
 
@@ -186,31 +192,6 @@ namespace Tyres.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Tyres.Data.Models.Orders.OrderItem", b =>
-                {
-                    b.Property<int>("ItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("OrderId");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired();
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("ItemId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Tyres.Data.Models.User", b =>
@@ -370,11 +351,17 @@ namespace Tyres.Data.Migrations
                         .HasForeignKey("Tyres.Data.Models.Orders.Cart", "UserId");
                 });
 
-            modelBuilder.Entity("Tyres.Data.Models.Orders.CartItem", b =>
+            modelBuilder.Entity("Tyres.Data.Models.Orders.Item", b =>
                 {
                     b.HasOne("Tyres.Data.Models.Orders.Cart", "Cart")
                         .WithMany("Items")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Tyres.Data.Models.Orders.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Tyres.Data.Models.Orders.Order", b =>
@@ -382,13 +369,6 @@ namespace Tyres.Data.Migrations
                     b.HasOne("Tyres.Data.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Tyres.Data.Models.Orders.OrderItem", b =>
-                {
-                    b.HasOne("Tyres.Data.Models.Orders.Order", "Order")
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId");
                 });
 #pragma warning restore 612, 618
         }

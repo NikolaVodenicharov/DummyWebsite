@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Tyres.Data.Models;
+using Tyres.Data.Models.Orders;
 
 namespace Tyres.Web.Infrastructure.Extensions
 {

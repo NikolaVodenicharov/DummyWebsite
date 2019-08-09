@@ -69,6 +69,7 @@ namespace Tyres.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
             }
             else
             {
@@ -96,7 +97,7 @@ namespace Tyres.Web
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Tyre}/{action=Index}/{id?}");
+                    template: "{area=products}/{controller=Tyre}/{action=Index}/{id?}");
             });
         }
     }

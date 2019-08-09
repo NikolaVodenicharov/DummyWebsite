@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tyres.Data.Enums.TyreEnums;
 
-namespace Tyres.Web.Models.Tyres
+namespace Tyres.Web.Areas.Products.Models.Tyres
 {
     public class TyreSearchForm
     {

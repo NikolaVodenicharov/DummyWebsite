@@ -2,17 +2,14 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Service.Interfaces;
-using Tyres.Service.Models;
-using Tyres.Web.Models;
-using Tyres.Web.Models.Tyres;
+using Tyres.Web.Areas.Products.Models.Tyres;
 
-namespace Tyres.Web.Controllers
+namespace Tyres.Web.Areas.Products.Controllers
 {
+    [Area("Products")]
     public class TyreController : Controller
     {
         private ITyreService tyreService;

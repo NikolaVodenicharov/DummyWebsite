@@ -6,6 +6,7 @@ namespace Tyres.Data.Enums.TyreEnums
 {
     public enum OrderStatus
     {
+        NotOrdered,
         Processing,
         Shipping,
         Delivered,

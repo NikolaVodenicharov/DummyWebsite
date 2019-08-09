@@ -6,8 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
     <Compile Remove="Migrations\20190731054115_Initial.cs" />
     <Compile Remove="Migrations\20190731054115_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20190808130320_Initial.cs" />
+    <Compile Remove="Migrations\20190808130320_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20190808130703_Again.cs" />
+    <Compile Remove="Migrations\20190808130703_Again.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

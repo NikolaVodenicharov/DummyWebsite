@@ -75,6 +75,7 @@ namespace Tyres.Service.Implementations
         {
             var tyresQuery = base.db
                 .Tyres
+                .Where(t => t.Quantity > 0)
                 .AsQueryable();
 
             if (width != Width.All)
