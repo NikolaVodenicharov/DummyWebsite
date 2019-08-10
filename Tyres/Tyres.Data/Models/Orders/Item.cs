@@ -25,8 +25,5 @@ namespace Tyres.Data.Models.Orders
 
         public Order Order { get; set; }
         public int OrderId { get; set; }
-
-        public Cart Cart { get; set; }
-        public int CartId { get; set; }
     }
 }

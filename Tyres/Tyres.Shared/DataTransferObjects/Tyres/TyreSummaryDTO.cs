@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Tyres.Data.Enums.TyreEnums;
 
-namespace Tyres.Service.Models
+namespace Tyres.Shared.DataTransferObjects.Tyres
 {
-    public class TyreSummary
+    public class TyreSummaryDTO
     {
         public int Id { get; set; }
 

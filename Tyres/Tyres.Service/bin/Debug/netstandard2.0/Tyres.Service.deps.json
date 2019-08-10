@@ -1001,7 +1001,8 @@
       },
       "Tyres.Shared/1.0.0": {
         "dependencies": {
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.1"
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.1",
+          "Tyres.Data": "1.0.0"
         },
         "runtime": {
           "Tyres.Shared.dll": {}

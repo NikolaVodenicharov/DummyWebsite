@@ -1,6 +1,9 @@
-﻿namespace Tyres.Shared.DataTransferObjects.Sells
+﻿using Tyres.Data.Models.Orders;
+using Tyres.Shared.Mappings;
+
+namespace Tyres.Shared.DataTransferObjects.Sells
 {
-    public class CartItemForm
+    public class CartItemDTO : IMapFrom<Item>
     {
         public int ProductId { get; set; }
 

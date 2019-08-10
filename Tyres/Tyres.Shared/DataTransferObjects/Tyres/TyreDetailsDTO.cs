@@ -2,9 +2,9 @@
 using Tyres.Products.Data.Models;
 using Tyres.Shared.Mappings;
 
-namespace Tyres.Service.Models
+namespace Tyres.Shared.DataTransferObjects.Tyres
 {
-    public class TyreDetails : IMapFrom<Tyre>
+    public class TyreDetailsDTO : IMapFrom<Tyre>
     {
         public int Id { get; set; }
 

@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Tyres.Data.Models;
+using Tyres.Service.Interfaces;
 using Tyres.Web.Infrastructure;
 using static Tyres.Data.Constants.Validations.UserValidationConstants;
 
@@ -20,17 +21,20 @@ namespace Tyres.Web.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ISellService sellService;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ISellService sellService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.sellService = sellService;
         }
 
         [BindProperty]
@@ -89,6 +93,7 @@ namespace Tyres.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, Constants.LoggedUser);
+                    this.sellService.EnsureOrdersInitialized(user.Id);
 
                     _logger.LogInformation("User created a new account with password.");
 

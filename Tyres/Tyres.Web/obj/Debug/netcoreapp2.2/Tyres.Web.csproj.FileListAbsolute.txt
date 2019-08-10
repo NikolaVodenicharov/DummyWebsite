@@ -104,10 +104,6 @@ C:\Users\WorkStation\Desktop\1\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.Views
 C:\Users\WorkStation\Desktop\1\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.csproj.CopyComplete
 C:\Users\WorkStation\Desktop\1\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.dll
 C:\Users\WorkStation\Desktop\1\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.pdb
-C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Views\Tyre\All.g.cshtml.cs
-C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Views\Tyre\Details.g.cshtml.cs
-C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Views\Tyre\Index.g.cshtml.cs
-C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Views\Tyre\_TyreSearch.g.cshtml.cs
 C:\Users\WorkStation\Desktop\Tyres\Tyres.Web\bin\Debug\netcoreapp2.2\Tyres.Web.deps.json
 C:\Users\WorkStation\Desktop\Tyres\Tyres.Web\bin\Debug\netcoreapp2.2\Tyres.Web.runtimeconfig.json
 C:\Users\WorkStation\Desktop\Tyres\Tyres.Web\bin\Debug\netcoreapp2.2\Tyres.Web.runtimeconfig.dev.json
@@ -161,3 +157,4 @@ C:\Users\WorkStation\Desktop\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.V
 C:\Users\WorkStation\Desktop\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.csproj.CopyComplete
 C:\Users\WorkStation\Desktop\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.dll
 C:\Users\WorkStation\Desktop\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.pdb
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Products\Views\Sell\GetCart.g.cshtml.cs

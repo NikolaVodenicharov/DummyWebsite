@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Data\\Tyres.Data.csproj": {}
+    "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Data\\Tyres.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Data\\Tyres.Data.csproj": {
+    "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Data\\Tyres.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Data\\Tyres.Data.csproj",
+        "projectUniqueName": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Data\\Tyres.Data.csproj",
         "projectName": "Tyres.Data",
-        "projectPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Data\\Tyres.Data.csproj",
+        "projectPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Data\\Tyres.Data.csproj",
         "packagesPath": "C:\\Users\\WorkStation\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Data\\obj\\",
+        "outputPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

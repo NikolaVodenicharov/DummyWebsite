@@ -1,0 +1,33 @@
+﻿@model CartDTO
+@{
+    ViewData["Title"] = "My cart";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Price.ToMoney()</td>
+                <td>@item.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+
+<div>
+    <span style="font-weight:bold">Total:</span> @Model.Items.Sum(i => i.Price).ToMoney()
+</div>
+<a class="btn btn-primary" asp-area="Products" asp-controller="Sell" asp-action="Ordering">Order</a>

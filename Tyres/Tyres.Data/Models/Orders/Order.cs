@@ -12,10 +12,10 @@ namespace Tyres.Data.Models.Orders
         public User User { get; set; }
         public string UserId { get; set; }
 
-        public OrderStatus Status { get; set; } = OrderStatus.NotOrdered;
+        public OrderStatus Status { get; set; }
 
         public DateTime Date { get; set; }
 
-        public IEnumerable<Item> Items { get; set; } = new List<Item>();
+        public IList<Item> Items { get; set; }
     }
 }

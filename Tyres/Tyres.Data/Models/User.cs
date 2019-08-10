@@ -17,9 +17,6 @@ namespace Tyres.Data.Models
         [Required, MaxLength(DeliveryAddressMaxlenght)]
         public string DeliveryAddress { get; set; }
 
-
-        public Cart Cart { get; set; }
-
-        public IEnumerable<Order> Orders { get; set; } = new List<Order>();
+        public IList<Order> Orders { get; set; }
     }
 }

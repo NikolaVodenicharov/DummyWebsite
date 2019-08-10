@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Tyres.Data.Models;
 using Tyres.Data.Models.Orders;
+using Tyres.Service.Implementations;
+using Tyres.Service.Interfaces;
 
 namespace Tyres.Web.Infrastructure.Extensions
 {
@@ -52,6 +54,7 @@ namespace Tyres.Web.Infrastructure.Extensions
             {
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                var sellService = serviceScope.ServiceProvider.GetService<ISellService>();
 
                 Task
                     .Run(async () =>
@@ -84,6 +87,7 @@ namespace Tyres.Web.Infrastructure.Extensions
                         if (result.Succeeded)
                         {
                             await userManager.AddToRoleAsync(user, Constants.Administrator);
+                            sellService.EnsureOrdersInitialized(user.Id);
                         }
                     })
                     .Wait();

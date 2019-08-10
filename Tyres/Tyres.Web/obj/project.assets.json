@@ -4796,7 +4796,8 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.1"
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.1",
+          "Tyres.Data": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Tyres.Shared.dll": {}
@@ -13088,11 +13089,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Web\\Tyres.Web.csproj",
+      "projectUniqueName": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Web\\Tyres.Web.csproj",
       "projectName": "Tyres.Web",
-      "projectPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Web\\Tyres.Web.csproj",
+      "projectPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Web\\Tyres.Web.csproj",
       "packagesPath": "C:\\Users\\WorkStation\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Web\\obj\\",
+      "outputPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13111,14 +13112,14 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Data\\Tyres.Data.csproj": {
-              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Data\\Tyres.Data.csproj"
+            "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Data\\Tyres.Data.csproj": {
+              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Data\\Tyres.Data.csproj"
             },
-            "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Service\\Tyres.Service.csproj": {
-              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Service\\Tyres.Service.csproj"
+            "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Service\\Tyres.Service.csproj": {
+              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Service\\Tyres.Service.csproj"
             },
-            "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Shared\\Tyres.Shared.csproj": {
-              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Tyres\\Tyres.Shared\\Tyres.Shared.csproj"
+            "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Shared\\Tyres.Shared.csproj": {
+              "projectPath": "C:\\Users\\WorkStation\\Desktop\\Projects\\Tyres\\Tyres.Shared\\Tyres.Shared.csproj"
             }
           }
         }

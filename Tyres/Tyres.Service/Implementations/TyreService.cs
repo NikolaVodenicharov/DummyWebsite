@@ -1,13 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using Tyres.Data;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Products.Data.Models;
-using Tyres.Service.Constants;
 using Tyres.Service.Interfaces;
-using Tyres.Service.Models;
+using Tyres.Shared.DataTransferObjects.Tyres;
 using static Tyres.Service.Constants.PageConstants;
 
 namespace Tyres.Service.Implementations
@@ -19,7 +18,7 @@ namespace Tyres.Service.Implementations
         {
         }
 
-        public TyreDetails Get(int id)
+        public TyreDetailsDTO Get(int id)
         {
             var tyre = base.db
                 .Tyres
@@ -31,12 +30,12 @@ namespace Tyres.Service.Implementations
             }
 
             var model = base.mapper
-                .Map<TyreDetails>(tyre);
+                .Map<TyreDetailsDTO>(tyre);
 
             return model;
         }
 
-        public IEnumerable<TyreSummary> GetAllListing(Width width, Ratio ratio, Diameter diameter, Season season, int page = DefaultPage)
+        public IEnumerable<TyreSummaryDTO> GetAllListing(Width width, Ratio ratio, Diameter diameter, Season season, int page = DefaultPage)
         {
             var tyresQuery = this.CreateQueryByParameters(width, ratio, diameter, season);
 
@@ -44,7 +43,7 @@ namespace Tyres.Service.Implementations
                 .OrderBy(t => t.Price)
                 .Skip(PageSize * (page - 1))
                 .Take(PageSize)
-                .Select(t => new TyreSummary
+                .Select(t => new TyreSummaryDTO
                 {
                     Id = t.Id,
                     Brand = t.Brand,

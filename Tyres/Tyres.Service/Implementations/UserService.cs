@@ -1,13 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Tyres.Data;
 using Tyres.Service.Constants;
 using Tyres.Service.Interfaces;
-using Tyres.Service.Models;
+using Tyres.Shared.DataTransferObjects.Users;
 
 namespace Tyres.Service.Implementations
 {
@@ -18,14 +16,14 @@ namespace Tyres.Service.Implementations
         {
         }
 
-        public List<UserSummary> All(int page = 1)
+        public List<UserSummaryDTO> All(int page = 1)
         {
             return base.db
                 .Users
                 .OrderBy(u => u.UserName)
                 .Skip(PageConstants.PageSize * (page - 1))
                 .Take(PageConstants.PageSize)
-                .ProjectTo<UserSummary>(base.mapper.ConfigurationProvider)
+                .ProjectTo<UserSummaryDTO>(base.mapper.ConfigurationProvider)
                 .ToList();
         }
     }

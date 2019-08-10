@@ -21,7 +21,7 @@ namespace Tyres.Web.Areas.Products.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult AddProduct(CartItemForm model)
+        public IActionResult AddProduct(CartItemDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -29,8 +29,25 @@ namespace Tyres.Web.Areas.Products.Controllers
             }
 
             var userId = this.userManager.GetUserId(User);
-
             this.sellService.AddToCart(model, userId);
+
+            return RedirectToAction("index", "Tyre");
+        }
+
+        [Authorize]
+        public IActionResult GetCart()
+        {
+            var userId = this.userManager.GetUserId(User);
+            var cart = this.sellService.GetCart(userId);
+
+            return View(cart);
+        }
+
+        [Authorize]
+        public IActionResult Ordering()
+        {
+            var userId = this.userManager.GetUserId(User);
+            this.sellService.Ordering(userId);
 
             return RedirectToAction("index", "Tyre");
         }

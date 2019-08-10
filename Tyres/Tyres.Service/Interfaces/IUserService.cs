@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Tyres.Service.Constants;
-using Tyres.Service.Models;
+using Tyres.Shared.DataTransferObjects.Users;
 
 namespace Tyres.Service.Interfaces
 {
     public interface IUserService
     {
-        List<UserSummary> All(int page = PageConstants.DefaultPage);
+        List<UserSummaryDTO> All(int page = PageConstants.DefaultPage);
     }
 }
