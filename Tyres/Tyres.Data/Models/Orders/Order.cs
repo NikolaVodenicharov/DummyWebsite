@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Tyres.Data.Constants.Validations;
 using Tyres.Data.Enums.TyreEnums;
 
 namespace Tyres.Data.Models.Orders
@@ -15,6 +17,9 @@ namespace Tyres.Data.Models.Orders
         public OrderStatus Status { get; set; }
 
         public DateTime Date { get; set; }
+
+        [MaxLength(UserValidationConstants.DeliveryAddressMaxlenght)]
+        public string DeliveryAddress { get; set; }
 
         public IList<Item> Items { get; set; }
     }

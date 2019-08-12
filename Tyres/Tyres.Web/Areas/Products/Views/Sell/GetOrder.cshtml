@@ -1,0 +1,18 @@
+﻿@model OrderDetailsDTO
+@{
+    ViewData["Title"] = "Order details";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+
+<div>
+    <p>Date: @Model.Date</p>
+    <p>Status: @Model.Status</p>
+    <br />
+    <p>Receiver: @Model.UserFirstName @Model.UserLastName</p>
+    <p>Delivery address: @Model.DeliveryAddress</p>
+</div>
+<br />
+
+@await Html.PartialAsync("~/Areas/Products/Views/Sell/_ItemsTable.cshtml", Model.Items)

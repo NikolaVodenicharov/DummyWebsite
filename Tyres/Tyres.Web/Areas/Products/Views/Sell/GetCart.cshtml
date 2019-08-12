@@ -5,27 +5,13 @@
 
 <h1>@ViewData["Title"]</h1>
 <br />
+<div>
+    <a class="btn btn-primary" asp-area="Products" asp-controller="Sell" asp-action="GetOrders">My orders</a>
 
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Items)
-        {
-            <tr>
-                <td>@item.ProductName</td>
-                <td>@item.Price.ToMoney()</td>
-                <td>@item.Quantity</td>
-            </tr>
-        }
-    </tbody>
-</table>
+</div>
 <br />
+
+@await Html.PartialAsync("~/Areas/Products/Views/Sell/_ItemsTable.cshtml", Model.Items)
 
 <div>
     <span style="font-weight:bold">Total:</span> @Model.Items.Sum(i => i.Price).ToMoney()

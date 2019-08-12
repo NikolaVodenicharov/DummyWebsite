@@ -1,0 +1,30 @@
+﻿@model IEnumerable<OrderSummaryDTO>
+@{
+    ViewData["Title"] = "All orders";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Sum</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Date</td>
+                <td>@order.Status</td>
+                <td>@order.Sum.ToMoney()</td>
+                <td>
+                    <a class="btn btn-primary" asp-area="Products" asp-controller="Sell" asp-action="GetOrder" asp-route-orderId="@order.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

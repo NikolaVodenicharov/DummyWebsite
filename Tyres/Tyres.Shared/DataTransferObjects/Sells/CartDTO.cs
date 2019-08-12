@@ -12,6 +12,6 @@ namespace Tyres.Shared.DataTransferObjects.Sells
 
         public string UserId { get; set; }
 
-        public IList<CartItemDTO> Items { get; set; }
+        public IList<ItemDTO> Items { get; set; }
     }
 }

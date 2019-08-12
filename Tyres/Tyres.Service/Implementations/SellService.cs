@@ -23,7 +23,7 @@ namespace Tyres.Service.Implementations
         {
         }
 
-        public void AddToCart(CartItemDTO model, string userId)
+        public void AddToCart(ItemDTO model, string userId)
         {
             if (!this.IsProductCorrect(model))
             {
@@ -56,41 +56,6 @@ namespace Tyres.Service.Implementations
             db.SaveChanges();
         }
 
-        public CartDTO GetCart1(string userId)
-        {
-            if (!this.IsUserExist(userId))
-            {
-                return null;
-            }
-
-            var order = db
-                .Users
-                .Where(u => u.Id == userId)
-                .Select(u => u
-                    .Orders
-                    .Last())
-                .FirstOrDefault();
-
-            var isCart = order.Status == OrderStatus.NotOrdered;
-            if (!isCart)
-            {
-                var user = GetUserWithOrders(userId);
-                order = this.CreateCart(userId);
-                user.Orders.Add(order);
-
-                db.SaveChanges();
-            }
-
-            var cart = new CartDTO
-            {
-                Id = order.Id,
-                UserId = order.UserId,
-                Items = order.Items.AsQueryable().ProjectTo<CartItemDTO>().ToList()
-            };
-
-            return cart;
-        }
-
         public CartDTO GetCart(string userId)
         {
             if (!this.IsUserExist(userId))
@@ -120,7 +85,11 @@ namespace Tyres.Service.Implementations
             {
                 Id = orderWithItems.Id,
                 UserId = orderWithItems.UserId,
-                Items = orderWithItems.Items.AsQueryable().ProjectTo<CartItemDTO>(mapper.ConfigurationProvider).ToList()
+                Items = orderWithItems
+                    .Items
+                    .AsQueryable()
+                    .ProjectTo<ItemDTO>(mapper.ConfigurationProvider)
+                    .ToList()
             };
 
             return cart;
@@ -142,31 +111,68 @@ namespace Tyres.Service.Implementations
             var cartOrder = orders.Last();
             cartOrder.Date = DateTime.UtcNow;
             cartOrder.Status = OrderStatus.Processing;
+            cartOrder.DeliveryAddress = db.Users.Find(userId).DeliveryAddress;
 
             orders.Add(this.CreateCart(userId));
 
             db.SaveChanges();
         }
 
-        public void GetOrders(string userId)
+        public OrderDetailsDTO GetOrder(int orderId)
+        {
+            var order = this.db
+                .Orders
+                .Where(o => o.Id == orderId)
+                .Include(o => o.User)
+                .Include(o => o.Items)
+                .FirstOrDefault();
+
+            if (order == null)
+            {
+                return null;
+            }
+
+            var model = new OrderDetailsDTO
+            {
+                UserFirstName = order.User.FirstName,
+                UserLastName = order.User.LastName,
+                DeliveryAddress = order.DeliveryAddress,
+                Status = order.Status,
+                Date = order.Date,
+                Items = order.Items
+                        .AsQueryable()
+                        .ProjectTo<ItemDTO>(mapper.ConfigurationProvider)
+                        .ToList()
+            };
+
+            return model;
+        }
+
+        public List<OrderSummaryDTO> GetOrders(string userId)
         {
             if (!this.IsUserExist(userId))
             {
-                return;
+                return null;
             }
 
-            var orders = db
-                .Users
-                .Where(u => u.Id == userId)
-                .Select(u => u.Orders)
-                .FirstOrDefault();
+            var ordersSummary = db
+                .Orders
+                .Where(o => o.UserId == userId && o.Status != OrderStatus.NotOrdered)
+                .Select(o => new OrderSummaryDTO
+                {
+                    Id = o.Id,
+                    Date = o.Date,
+                    Status = o.Status,
+                    Sum = o.Items.Sum(i => i.Price)
+                })
+                .ToList();
 
-
+            return ordersSummary;
         }
 
         public void EnsureOrdersInitialized(string userId)
         {
-            if (this.IsUserExist(userId))
+            if (!this.IsUserExist(userId))
             {
                 return;
             }
@@ -186,7 +192,7 @@ namespace Tyres.Service.Implementations
             db.SaveChanges();
         }
 
-        private bool IsProductCorrect(CartItemDTO model)
+        private bool IsProductCorrect(ItemDTO model)
         {
             var type = Assembly
                 .GetAssembly(typeof(Tyre))

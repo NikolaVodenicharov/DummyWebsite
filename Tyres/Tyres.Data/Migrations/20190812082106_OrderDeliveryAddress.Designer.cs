@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tyres.Data;
 
 namespace Tyres.Data.Migrations
 {
     [DbContext(typeof(TyresDbContext))]
-    partial class TyresDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190812082106_OrderDeliveryAddress")]
+    partial class OrderDeliveryAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,6 +165,7 @@ namespace Tyres.Data.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<string>("DeliveryAddress")
+                        .IsRequired()
                         .HasMaxLength(200);
 
                     b.Property<int>("Status");

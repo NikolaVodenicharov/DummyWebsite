@@ -3,7 +3,7 @@ using Tyres.Shared.Mappings;
 
 namespace Tyres.Shared.DataTransferObjects.Sells
 {
-    public class CartItemDTO : IMapFrom<Item>
+    public class ItemDTO : IMapFrom<Item>
     {
         public int ProductId { get; set; }
 

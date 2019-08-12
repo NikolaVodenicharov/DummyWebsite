@@ -8,6 +8,7 @@ using Tyres.Shared.DataTransferObjects.Sells;
 namespace Tyres.Web.Areas.Products.Controllers
 {
     [Area("Products")]
+    [Authorize]
     public class SellController : Controller
     {
         private ISellService sellService;
@@ -19,37 +20,50 @@ namespace Tyres.Web.Areas.Products.Controllers
             this.userManager = userManager;
         }
 
-        [HttpPost]
-        [Authorize]
-        public IActionResult AddProduct(CartItemDTO model)
+        [HttpPost]      
+        public IActionResult AddProduct(ItemDTO model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var userId = this.userManager.GetUserId(User);
-            this.sellService.AddToCart(model, userId);
+            this.sellService.AddToCart(model, this.GetUserId());
 
-            return RedirectToAction("index", "Tyre");
+            return RedirectToAction(nameof(GetCart));
         }
 
-        [Authorize]
         public IActionResult GetCart()
         {
-            var userId = this.userManager.GetUserId(User);
-            var cart = this.sellService.GetCart(userId);
+            var cart = this.sellService.GetCart(this.GetUserId());
 
             return View(cart);
         }
 
-        [Authorize]
         public IActionResult Ordering()
         {
-            var userId = this.userManager.GetUserId(User);
-            this.sellService.Ordering(userId);
+            this.sellService.Ordering(this.GetUserId());
 
             return RedirectToAction("index", "Tyre");
+        }
+
+        public IActionResult GetOrder(int orderId)
+        {
+            var model = this.sellService.GetOrder(orderId);
+
+            return View(model);
+        }
+
+        public IActionResult GetOrders()
+        {
+            var model = this.sellService.GetOrders(this.GetUserId());
+
+            return View(model);
+        }
+
+        private string GetUserId()
+        {
+            return this.userManager.GetUserId(User);
         }
     }
 }
