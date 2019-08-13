@@ -634,6 +634,7 @@
       "Tyres.Shared/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.1",
+          "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Tyres.Data": "1.0.0"
         },
         "runtime": {

@@ -19,9 +19,9 @@ namespace Tyres.Web.Infrastructure.Extensions
 
                 var roles = new[]
                 {
-                    Constants.Administrator,
-                    Constants.Worker,
-                    Constants.LoggedUser
+                    RoleConstants.Administrator,
+                    RoleConstants.Worker,
+                    RoleConstants.LoggedUser
                 };
 
                 foreach (var role in roles)
@@ -59,7 +59,7 @@ namespace Tyres.Web.Infrastructure.Extensions
                 Task
                     .Run(async () =>
                     {
-                        var user = await userManager.FindByNameAsync(Constants.Administrator);
+                        var user = await userManager.FindByNameAsync(RoleConstants.Administrator);
 
                         var isAdminExist = user != null;
                         if (isAdminExist)
@@ -67,16 +67,16 @@ namespace Tyres.Web.Infrastructure.Extensions
                             return;
                         }
 
-                        var isRoleExist = await roleManager.RoleExistsAsync(Constants.Administrator);
+                        var isRoleExist = await roleManager.RoleExistsAsync(RoleConstants.Administrator);
                         if (!isRoleExist)
                         {
-                            throw new TaskCanceledException($"Can not create {Constants.Administrator} because the role does not exist.");
+                            throw new TaskCanceledException($"Can not create {RoleConstants.Administrator} because the role does not exist.");
                         }
 
                         user = new User
                         {
-                            UserName = $"{Constants.Administrator}@gmail.com",
-                            Email = $"{Constants.Administrator}@gmail.com",
+                            UserName = $"{RoleConstants.Administrator}@gmail.com",
+                            Email = $"{RoleConstants.Administrator}@gmail.com",
                             PhoneNumber = "+123456123456",
                             FirstName = "John",
                             LastName = "Doe",
@@ -86,7 +86,7 @@ namespace Tyres.Web.Infrastructure.Extensions
                         var result = await userManager.CreateAsync(user, "admin123");
                         if (result.Succeeded)
                         {
-                            await userManager.AddToRoleAsync(user, Constants.Administrator);
+                            await userManager.AddToRoleAsync(user, RoleConstants.Administrator);
                             sellService.EnsureOrdersInitialized(user.Id);
                         }
                     })

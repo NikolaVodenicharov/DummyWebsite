@@ -161,3 +161,7 @@ C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Ra
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Products\Views\Sell\GetOrders.g.cshtml.cs
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Products\Views\Sell\GetOrder.g.cshtml.cs
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Products\Views\Sell\_ItemsTable.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Workers\Views\Vendor\GetProcessingOrders.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Workers\Views\_ViewImports.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Workers\Views\_ViewStart.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Workers\Views\Vendor\GetProcessingOrderDetails.g.cshtml.cs

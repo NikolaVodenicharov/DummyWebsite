@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tyres.Data.Enums.TyreEnums;
+using Tyres.Service.Constants;
 using Tyres.Service.Interfaces;
 using Tyres.Web.Areas.Products.Models.Tyres;
 
@@ -105,7 +106,7 @@ namespace Tyres.Web.Areas.Products.Controllers
             return items;
         }
 
-        public IActionResult All(TyreSearchForm model, int page = 1)
+        public IActionResult All(TyreSearchForm model, int page = PageConstants.DefaultPage)
         {
             var tyreSearchForm = this.GenerateTyreSearchForm(model.Width, model.Ratio, model.Diameter, model.Season);
 

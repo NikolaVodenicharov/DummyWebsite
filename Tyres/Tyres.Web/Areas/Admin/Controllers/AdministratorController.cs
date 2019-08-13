@@ -14,7 +14,7 @@ using Tyres.Web.Infrastructure;
 namespace Tyres.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = Constants.Administrator)]
+    [Authorize(Roles = RoleConstants.Administrator)]
     public class AdministratorController : Controller
     {
         private readonly UserManager<User> userManager;

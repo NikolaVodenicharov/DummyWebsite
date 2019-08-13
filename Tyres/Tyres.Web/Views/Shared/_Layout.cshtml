@@ -36,7 +36,19 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
 
-                        @if (User.IsInRole(Constants.Administrator))
+                        @if (User.IsInRole(RoleConstants.Administrator) || User.IsInRole(RoleConstants.Worker))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Worker
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Workers" asp-controller="Vendor" asp-action="GetProcessingOrders">Processing orders</a>
+                                </div>
+                            </li>
+                        }
+
+                        @if (User.IsInRole(RoleConstants.Administrator))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

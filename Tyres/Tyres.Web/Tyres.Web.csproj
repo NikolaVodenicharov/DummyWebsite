@@ -30,10 +30,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Products\Data\" />
-    <Folder Include="Areas\Workers\Controllers\" />
     <Folder Include="Areas\Workers\Data\" />
     <Folder Include="Areas\Workers\Models\" />
-    <Folder Include="Areas\Workers\Views\" />
   </ItemGroup>
 
 </Project>

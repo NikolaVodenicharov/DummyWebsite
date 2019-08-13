@@ -1,0 +1,47 @@
+﻿@model OrderProcessingDetailsDTO
+@{
+    ViewData["Title"] = "Processing order details";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+
+<div>
+    <p>Date: @Model.Date</p>
+    <p>Receiver: @Model.UserFirstName @Model.UserLastName</p>
+    <p>Delivery address: @Model.DeliveryAddress</p>
+</div>
+<div class="col-md-4">
+    <form asp-controller="Vendor" asp-action="ChangeOrderStatus" asp-route-orderId="@Model.OrderId" method="post">
+        <div class="form-group">
+            <label asp-for="Status"></label>
+            <select asp-for="Status" asp-items="@Model.Statuses" class="form-control">Season</select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Chage status</button>
+    </form>
+    <br />
+</div>
+<br />
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Price.ToMoney()</td>
+                <td>@item.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>

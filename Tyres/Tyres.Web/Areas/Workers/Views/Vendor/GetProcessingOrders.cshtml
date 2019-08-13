@@ -1,0 +1,33 @@
+﻿@model IEnumerable<OrderProcessingDTO>
+@{
+    ViewData["Title"] = "Processing orders";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>User name</th>
+            <th>Delivery address</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.Date</td>
+                <td>@($"{order.UserFirstName} {order.UserLastName}")</td>
+                <td>@order.DeliveryAddress</td>
+                <td>
+                    <a class="btn btn-primary" asp-area="Workers" asp-controller="Vendor" asp-action="GetProcessingOrderDetails" asp-route-orderId="@order.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
