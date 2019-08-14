@@ -37,7 +37,7 @@ namespace Tyres.Web.Areas.Products.Controllers
             };
         }
 
-        // TODO: move these 2 methods in to the service ?
+        // TODO: move these 2 methods in to the service  or to some "Logic" project or folder?
 
         /// <summary>
         /// Making Collection of SelectListItem from enumeration taking only the values. 

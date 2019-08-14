@@ -22,6 +22,7 @@ namespace Tyres.Web.Areas.Useful.Controllers
             return View(model);
         }
 
+        //TODO extract method to some "Logic" project or folder
         private List<SelectListItem> GetEnumValuesItems<T>(T selected, bool skipFirstElement = false) where T : Enum
         {
             var enumElements = Enum.GetValues(typeof(T));

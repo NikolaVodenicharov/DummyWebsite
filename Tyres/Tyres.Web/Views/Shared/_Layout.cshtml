@@ -35,6 +35,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Useful" asp-controller="TyreCalculator" asp-action="Calculator">Tyre calculator</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Useful" asp-controller="Articles" asp-action="TyreSize">How to read tyre size</a>
+                        </li>
 
                         @if (User.IsInRole(RoleConstants.Administrator) || User.IsInRole(RoleConstants.Worker))
                         {
