@@ -30,7 +30,7 @@ namespace Tyres.Web.Areas.Products.Controllers
         {
             return new TyreSearchForm
             {
-                Widths = GetEnumValuesItems<Width>(selectedWidth),
+                Widths = GetEnumValuesItems<Width>(Width._195),
                 Ratios = GetEnumValuesItems<Ratio>(selectedRatio),
                 Diameters = GetEnumValuesItems<Diameter>(selectedDiameter),
                 Seasons = GetEnumNamesValuesItems<Season>(selectedSeason)

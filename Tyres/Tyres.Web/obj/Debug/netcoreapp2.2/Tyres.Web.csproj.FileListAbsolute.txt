@@ -165,3 +165,6 @@ C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Ra
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Workers\Views\_ViewImports.g.cshtml.cs
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Workers\Views\_ViewStart.g.cshtml.cs
 C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Workers\Views\Vendor\GetProcessingOrderDetails.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Useful\Views\TyreCalculator\Calculator.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Useful\Views\_ViewImports.g.cshtml.cs
+C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Useful\Views\_ViewStart.g.cshtml.cs

@@ -33,7 +33,7 @@
                             <a class="nav-link text-dark" asp-area="Products" asp-controller="Tyre" asp-action="Index">Tyre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="Useful" asp-controller="TyreCalculator" asp-action="Calculator">Tyre calculator</a>
                         </li>
 
                         @if (User.IsInRole(RoleConstants.Administrator) || User.IsInRole(RoleConstants.Worker))

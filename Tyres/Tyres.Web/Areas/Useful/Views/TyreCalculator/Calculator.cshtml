@@ -1,0 +1,82 @@
+﻿@model TyreCalculatorForm
+@{
+    ViewData["Title"] = "Calculator";
+}
+
+<h1 style="text-align:center">@ViewData["Title"]</h1>
+<br />
+
+<div class="row" onchange="TyresCalculator()">
+    <div class="col-sm-3">
+        <h3>
+            Old size:
+        </h3>
+        <br />
+
+        <div class="form-group">
+            <label for="OldWidth">Width</label>
+            @Html.DropDownList(
+                "OldWidth",
+                Model.Widths,
+                new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="OldRatio">Ratio</label>
+            @Html.DropDownList(
+                "OldRatio",
+                Model.Ratios,
+                new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="OldRimDiameter">Rim diameter</label>
+            @Html.DropDownList(
+                "OldRimDiameter",
+                Model.RimDiameters,
+                new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="OldFullDiameter">Full diameter:</label>
+            <p id="OldFullDiameter">635 mm</p>
+        </div>
+    </div>
+
+    <div class="col-sm-3 ml-auto">
+        <h3>
+            New size:
+        </h3>
+        <br />
+
+        <div class="form-group">
+            <label for="NewWidth">Width</label>
+            @Html.DropDownList(
+                "NewWidth",
+                Model.Widths,
+                new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="NewRatio">Ratio</label>
+            @Html.DropDownList(
+                "NewRatio",
+                Model.Ratios,
+                new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="NewRimDiameter">Rim diameter</label>
+            @Html.DropDownList(
+                "NewRimDiameter",
+                Model.RimDiameters,
+                new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="NewFullDiameter">Full diameter:</label>
+            <p id="NewFullDiameter">635 mm</p> 
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="form-group" style="text-align:center">
+    <p>Difference: <span id="Difference">0 mm</span></p>
+    <p>The tires sizes are <span id="Compatibility" style="background-color:#BADCAB">compatible</span></p>
+    <p>Speedometer readings with actual speed of 100 km/h: <span id="SpeedometerSpeed">100</span></p>
+</div>

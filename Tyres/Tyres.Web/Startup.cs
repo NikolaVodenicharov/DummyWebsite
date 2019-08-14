@@ -69,7 +69,6 @@ namespace Tyres.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
             }
             else
             {
@@ -79,7 +78,7 @@ namespace Tyres.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            // app.UseCookiePolicy();
 
             app.UseAuthentication();
 
@@ -93,6 +92,11 @@ namespace Tyres.Web
                 routes.MapRoute(
                   name: "areas",
                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                routes.MapRoute(
+                  name: "NoArea",
+                  template: "{controller=Home}/{action=Index}/{id?}"
                 );
 
                 routes.MapRoute(
