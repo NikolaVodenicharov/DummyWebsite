@@ -6,9 +6,9 @@ namespace Tyres.Service.Interfaces
 {
     public interface ISellService
     {
-        void AddToCart(ItemDTO model, string userId);
+        bool AddToCart(ItemDTO model, string userId);
 
-        void Ordering(string userId);
+        bool Ordering(string userId);
 
         CartDTO GetCart(string userId);
 

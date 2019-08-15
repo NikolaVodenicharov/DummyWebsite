@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tyres.Data.Models;
 using Tyres.Service.Interfaces;
 using Tyres.Shared.DataTransferObjects.Sells;
+using Tyres.Web.Infrastructure.Extensions;
 
 namespace Tyres.Web.Areas.Products.Controllers
 {
@@ -11,8 +12,8 @@ namespace Tyres.Web.Areas.Products.Controllers
     [Authorize]
     public class SellController : Controller
     {
-        private ISellService sellService;
-        private UserManager<User> userManager;
+        private readonly ISellService sellService;
+        private readonly UserManager<User> userManager;
 
         public SellController(ISellService sellService, UserManager<User> userManager)
         {
@@ -28,8 +29,14 @@ namespace Tyres.Web.Areas.Products.Controllers
                 return BadRequest();
             }
 
-            this.sellService.AddToCart(model, this.GetUserId());
+            var isSuccessfulAdded = this.sellService.AddToCart(model, this.GetUserId());
+            if (!isSuccessfulAdded)
+            {
+                TempData.AddErrrorMessage("Adding product was unsuccessful.");
+                return RedirectToAction("Index", "Tyre");
+            }
 
+            TempData.AddSuccessMessage("Adding product was successful.");
             return RedirectToAction(nameof(GetCart));
         }
 
@@ -42,9 +49,15 @@ namespace Tyres.Web.Areas.Products.Controllers
 
         public IActionResult Ordering()
         {
-            this.sellService.Ordering(this.GetUserId());
+            var isSuccessfulOrdered = this.sellService.Ordering(this.GetUserId());
+            if (!isSuccessfulOrdered)
+            {
+                TempData.AddErrrorMessage("Ordering was unsuccessful.");
+                return RedirectToAction("Index", "Tyre");
+            }
 
-            return RedirectToAction("index", "Tyre");
+            TempData.AddSuccessMessage("Ordering was successful.");
+            return RedirectToAction(nameof(GetOrders));
         }
 
         public IActionResult GetOrder(int orderId)

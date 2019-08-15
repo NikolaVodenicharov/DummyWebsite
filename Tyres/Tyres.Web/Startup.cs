@@ -96,7 +96,7 @@ namespace Tyres.Web
 
                 routes.MapRoute(
                   name: "NoArea",
-                  template: "{controller=Home}/{action=Index}/{id?}"
+                  template: "{controller}/{action}/{id?}"
                 );
 
                 routes.MapRoute(

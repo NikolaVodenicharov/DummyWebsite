@@ -23,16 +23,16 @@ namespace Tyres.Service.Implementations
         {
         }
 
-        public void AddToCart(ItemDTO model, string userId)
+        public bool AddToCart(ItemDTO model, string userId)
         {
             if (!this.IsProductCorrect(model))
             {
-                return;
+                return false;
             }
 
             if (!this.IsUserExist(userId))
             {
-                return;
+                return false;
             }
 
             var notOrdered = db
@@ -54,6 +54,8 @@ namespace Tyres.Service.Implementations
 
             db.Items.Add(cartItem);
             db.SaveChanges();
+
+            return true;
         }
 
         public CartDTO GetCart(string userId)
@@ -95,11 +97,11 @@ namespace Tyres.Service.Implementations
             return cart;
         }
 
-        public void Ordering(string userId)
+        public bool Ordering(string userId)
         {
             if (!this.IsUserExist(userId))
             {
-                return;
+                return false;
             }
 
             var orders = db
@@ -116,6 +118,8 @@ namespace Tyres.Service.Implementations
             orders.Add(this.CreateCart(userId));
 
             db.SaveChanges();
+
+            return true;
         }
 
         public OrderDetailsDTO GetOrder(int orderId)

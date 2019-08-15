@@ -13,7 +13,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -30,7 +30,7 @@
 
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Products" asp-controller="Tyre" asp-action="Index">Tyre</a>
+                            <a class="nav-link text-dark" asp-area="Products" asp-controller="Tyre" asp-action="Index">Search for tyre</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Useful" asp-controller="TyreCalculator" asp-action="Calculator">Tyre calculator</a>
@@ -70,6 +70,18 @@
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
+            @if (TempData.ContainsKey(TempDataDictionaryExtensions.SuccessMessageKey))
+            {
+                <div class="alert alert-success">
+                    @TempData[TempDataDictionaryExtensions.SuccessMessageKey]
+                </div>
+            }
+            @if (TempData.ContainsKey(TempDataDictionaryExtensions.ErrorMessageKey))
+            {
+                <div class="alert alert-danger">
+                    @TempData[TempDataDictionaryExtensions.ErrorMessageKey]
+                </div>
+            }
             @RenderBody()
         </main>
     </div>
