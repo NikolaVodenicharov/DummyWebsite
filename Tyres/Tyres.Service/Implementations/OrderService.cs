@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Tyres.Data;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Service.Interfaces;
@@ -14,16 +15,16 @@ using static Tyres.Service.Constants.PageConstants;
 
 namespace Tyres.Service.Implementations
 {
-    public class VendorService : AbstractService, IVendorService
+    public class OrderService : AbstractService, IOrderService
     {
-        public VendorService(TyresDbContext db, IMapper mapper) 
+        public OrderService(TyresDbContext db, IMapper mapper) 
             : base(db, mapper)
         {
         }
 
-        public List<OrderProcessingDTO> GetProcessingOrders(int page = DefaultPage)
+        public async Task<List<OrderProcessingDTO>> GetProcessingOrdersAsync(int page = DefaultPage)
         {
-            var orders = this.db
+            var orders = await this.db
                 .Orders
                 .Where(o => o.Status == OrderStatus.Processing)
                 .OrderBy(o => o.Date)
@@ -37,19 +38,19 @@ namespace Tyres.Service.Implementations
                     UserFirstName = o.User.FirstName,
                     UserLastName = o.User.LastName,
                 })
-                .ToList();
+                .ToListAsync();
 
             return orders;
         }
 
-        public OrderProcessingDetailsDTO GetProcessingOrderDetails(int orderId)
+        public async Task<OrderProcessingDetailsDTO> GetProcessingOrderDetailsAsync(int orderId)
         {
-            var order = this.db
+            var order = await this.db
                 .Orders
                 .Where(o => o.Id == orderId)
                 .Include(o => o.User)
                 .Include(o => o.Items)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             if (order == null)
             {
@@ -74,11 +75,11 @@ namespace Tyres.Service.Implementations
             return model;
         }
 
-        public void ChangeOrderStatus(int orderId, OrderStatus status)
+        public async Task ChangeOrderStatusAsync(int orderId, OrderStatus status)
         {
-            var order = db.Orders.Find(orderId);
+            var order = await db.Orders.FindAsync(orderId);
             order.Status = status;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
         private List<SelectListItem> GetOrderStatusValuesItems()

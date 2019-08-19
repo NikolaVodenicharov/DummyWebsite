@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Service.Constants;
 using Tyres.Service.Interfaces;
@@ -26,7 +27,32 @@ namespace Tyres.Web.Areas.Products.Controllers
             return View(model);
         }
 
-        private TyreSearchForm GenerateTyreSearchForm (Width selectedWidth = 0, Ratio selectedRatio = 0, Diameter selectedDiameter = 0, Season selectedSeason = 0)
+        public async Task<IActionResult> All(TyreSearchForm model, int page = PageConstants.DefaultPage)
+        {
+            var pageCountTask = this.tyreService.GetPagesCount(model.Width, model.Ratio, model.Diameter, model.Season);
+            var tyres = await this.tyreService.GetAllListingAsync(model.Width, model.Ratio, model.Diameter, model.Season, page);
+
+            var tyreSearchForm = this.GenerateTyreSearchForm(model.Width, model.Ratio, model.Diameter, model.Season);
+
+
+            var tyresPage = new TyresPageView
+            {
+                Page = page,
+                PagesCount = await pageCountTask,
+                Elements = tyres.ToList(),
+                Search = tyreSearchForm
+            };
+
+            return View(tyresPage);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await this.tyreService.Get(id);
+            return View(model);
+        }
+
+        private TyreSearchForm GenerateTyreSearchForm(Width selectedWidth = 0, Ratio selectedRatio = 0, Diameter selectedDiameter = 0, Season selectedSeason = 0)
         {
             return new TyreSearchForm
             {
@@ -36,6 +62,7 @@ namespace Tyres.Web.Areas.Products.Controllers
                 Seasons = GetEnumNamesValuesItems<Season>(selectedSeason)
             };
         }
+
 
         // TODO: move these 2 methods in to the service  or to some "Logic" project or folder?
 
@@ -75,7 +102,7 @@ namespace Tyres.Web.Areas.Products.Controllers
                 }
 
                 items.Add(item);
-            }         
+            }
 
             return items;
         }
@@ -104,27 +131,6 @@ namespace Tyres.Web.Areas.Products.Controllers
             }
 
             return items;
-        }
-
-        public IActionResult All(TyreSearchForm model, int page = PageConstants.DefaultPage)
-        {
-            var tyreSearchForm = this.GenerateTyreSearchForm(model.Width, model.Ratio, model.Diameter, model.Season);
-
-            var tyresPage = new TyresPageView
-            {
-                Page = page,
-                PagesCount = this.tyreService.GetPagesCount(model.Width, model.Ratio, model.Diameter, model.Season),
-                Elements = this.tyreService.GetAllListing(model.Width, model.Ratio, model.Diameter, model.Season, page).ToList(),
-                Search = tyreSearchForm
-            };
-
-            return View(tyresPage);
-        }
-
-        public IActionResult Details(int id)
-        {
-            var model = this.tyreService.Get(id);
-            return View(model);
         }
     }
 }

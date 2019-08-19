@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Tyres.Data;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Data.Models;
@@ -23,14 +24,12 @@ namespace Tyres.Service.Implementations
         {
         }
 
-        public bool AddToCart(ItemDTO model, string userId)
+        public async Task<bool> AddToCartAsync(ItemDTO model, string userId)
         {
-            if (!this.IsProductCorrect(model))
-            {
-                return false;
-            }
+            var isProductCorrectTask = this.IsProductCorrectAsync(model);
+            var isUserExistTask = this.IsUserExistAsync(userId);
 
-            if (!this.IsUserExist(userId))
+            if (!await isProductCorrectTask || !await isUserExistTask)
             {
                 return false;
             }
@@ -58,9 +57,9 @@ namespace Tyres.Service.Implementations
             return true;
         }
 
-        public CartDTO GetCart(string userId)
+        public async Task<CartDTO> GetCartAsync(string userId)
         {
-            if (!this.IsUserExist(userId))
+            if (!await this.IsUserExistAsync(userId))
             {
                 return null;
             }
@@ -97,39 +96,41 @@ namespace Tyres.Service.Implementations
             return cart;
         }
 
-        public bool Ordering(string userId)
+        public async Task<bool> OrderingAsync(string userId)
         {
-            if (!this.IsUserExist(userId))
+            if (!await this.IsUserExistAsync(userId))
             {
                 return false;
             }
 
-            var orders = db
+            var userTask = db.Users.FindAsync(userId);
+
+            var orders = await db
                 .Users
                 .Where(u => u.Id == userId)
                 .Select(u => u.Orders)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             var cartOrder = orders.Last();
             cartOrder.Date = DateTime.UtcNow;
             cartOrder.Status = OrderStatus.Processing;
-            cartOrder.DeliveryAddress = db.Users.Find(userId).DeliveryAddress;
+            cartOrder.DeliveryAddress = (await userTask).DeliveryAddress;
 
             orders.Add(this.CreateCart(userId));
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return true;
         }
 
-        public OrderDetailsDTO GetOrder(int orderId)
+        public async Task<OrderDetailsDTO> GetOrderAsync(int orderId)
         {
-            var order = this.db
+            var order = await this.db
                 .Orders
                 .Where(o => o.Id == orderId)
                 .Include(o => o.User)
                 .Include(o => o.Items)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             if (order == null)
             {
@@ -152,9 +153,9 @@ namespace Tyres.Service.Implementations
             return model;
         }
 
-        public List<OrderSummaryDTO> GetOrders(string userId)
+        public async Task<List<OrderSummaryDTO>> GetOrdersAsync(string userId)
         {
-            if (!this.IsUserExist(userId))
+            if (!await this.IsUserExistAsync(userId))
             {
                 return null;
             }
@@ -169,14 +170,15 @@ namespace Tyres.Service.Implementations
                     Status = o.Status,
                     Sum = o.Items.Sum(i => i.Price)
                 })
-                .ToList();
+                .ToListAsync();
 
-            return ordersSummary;
+            return await ordersSummary;
         }
 
-        public void EnsureOrdersInitialized(string userId)
+        public async Task EnsureOrdersInitializedAsync(string userId)
         {
-            if (!this.IsUserExist(userId))
+            var isUserExist = await this.IsUserExistAsync(userId);
+            if (!isUserExist)
             {
                 return;
             }
@@ -193,10 +195,10 @@ namespace Tyres.Service.Implementations
                 user.Orders.Add(this.CreateCart(userId));
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
-        private bool IsProductCorrect(ItemDTO model)
+        private async Task<bool> IsProductCorrectAsync(ItemDTO model)
         {
             var type = Assembly
                 .GetAssembly(typeof(Tyre))
@@ -204,7 +206,7 @@ namespace Tyres.Service.Implementations
                 .Where(t => t.Name == model.ProductName)
                 .FirstOrDefault();
 
-            var product = db.Find(type, model.ProductId);
+            var product = await db.FindAsync(type, model.ProductId);
 
             var isProductExist = product != null;
             if (!isProductExist)
@@ -223,12 +225,13 @@ namespace Tyres.Service.Implementations
 
             return true;
         }
-        private bool IsUserExist(string userId)
+        private async Task<bool> IsUserExistAsync(string userId)
         {
-            return db
+            return await db
                 .Users
-                .Any(u => u.Id == userId);
+                .AnyAsync(u => u.Id == userId);
         }
+
         private User GetUserWithOrders(string userId)
         {
             return db

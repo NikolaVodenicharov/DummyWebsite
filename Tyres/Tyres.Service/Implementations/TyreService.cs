@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Tyres.Data;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Products.Data.Models;
@@ -18,11 +20,11 @@ namespace Tyres.Service.Implementations
         {
         }
 
-        public TyreDetailsDTO Get(int id)
+        public async Task<TyreDetailsDTO> Get(int id)
         {
-            var tyre = base.db
+            var tyre = await base.db
                 .Tyres
-                .Find(id);
+                .FindAsync(id);
 
             if (tyre == null)
             {
@@ -35,7 +37,7 @@ namespace Tyres.Service.Implementations
             return model;
         }
 
-        public IEnumerable<TyreSummaryDTO> GetAllListing(Width width, Ratio ratio, Diameter diameter, Season season, int page = DefaultPage)
+        public async Task<IEnumerable<TyreSummaryDTO>> GetAllListingAsync(Width width, Ratio ratio, Diameter diameter, Season season, int page = DefaultPage)
         {
             var tyresQuery = this.CreateQueryByParameters(width, ratio, diameter, season);
 
@@ -54,20 +56,60 @@ namespace Tyres.Service.Implementations
                     Diameter = (int)t.Diameter,
                     Season = t.Season.ToString()
                 })
-                .ToList();
+                .ToListAsync();
 
-            return listedTyres;
+            return await listedTyres;
         }
 
-        public int GetPagesCount (Width width, Ratio ratio, Diameter diameter, Season season)
+        public async Task<int> GetPagesCount (Width width, Ratio ratio, Diameter diameter, Season season)
         {
             var tyresQuery = this.CreateQueryByParameters(width, ratio, diameter, season);
-            var tyresCountByParameters = tyresQuery.Count();
+            var tyresCountByParameters = await tyresQuery.CountAsync();
 
             var pages = (int)Math.Ceiling(
                 (double)tyresCountByParameters / PageSize);
 
             return pages;
+        }
+
+        public async Task<bool> Create<T>(CreateTyreDTO<T> model)
+        {
+            var tyre = new Tyre
+            {
+                Brand = model.Brand,
+                Model = model.Model,
+                Price = model.Price,
+                Quantity = model.Quantity,
+                Width = model.Width,
+                Ratio = model.Ratio,
+                Diameter = model.Diameter,
+                Season = model.Season,
+                Speed = model.Speed,
+                Load = model.Load,
+                FuelEfficient = model.FuelEfficient,
+                WetGrip = model.WetGrip,
+                Noice = model.Noice
+            };
+
+            db.Tyres.Add(tyre);
+            await db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UpdateQuantity(int id, int quantity)
+        {
+            var tyre = await db.Tyres.FindAsync(id);
+
+            if (tyre == null || quantity < 0)
+            {
+                return false;
+            }
+
+            tyre.Quantity = quantity;
+            await db.SaveChangesAsync();
+
+            return true;
         }
 
         private IQueryable<Tyre> CreateQueryByParameters (Width width, Ratio ratio, Diameter diameter, Season season)

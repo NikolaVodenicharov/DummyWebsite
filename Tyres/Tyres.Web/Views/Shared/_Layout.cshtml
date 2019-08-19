@@ -41,20 +41,21 @@
 
                         @if (User.IsInRole(RoleConstants.Administrator) || User.IsInRole(RoleConstants.Worker))
                         {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Worker
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Workers" asp-controller="Vendor" asp-action="GetProcessingOrders">Processing orders</a>
-                                </div>
-                            </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle alert-danger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                Worker
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-area="Workers" asp-controller="Vendor" asp-action="GetProcessingOrders">Processing orders</a>
+                                <a class="dropdown-item" asp-area="Workers" asp-controller="Vendor" asp-action="CreateTyre">Create tyre</a>
+                            </div>
+                        </li>
                         }
 
                         @if (User.IsInRole(RoleConstants.Administrator))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle alert-danger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Administrator
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">

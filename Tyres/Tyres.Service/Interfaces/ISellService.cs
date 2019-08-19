@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Tyres.Data.Models.Orders;
 using Tyres.Shared.DataTransferObjects.Sells;
 
@@ -6,16 +7,16 @@ namespace Tyres.Service.Interfaces
 {
     public interface ISellService
     {
-        bool AddToCart(ItemDTO model, string userId);
+        Task<bool> AddToCartAsync(ItemDTO model, string userId);
 
-        bool Ordering(string userId);
+        Task<bool> OrderingAsync(string userId);
 
-        CartDTO GetCart(string userId);
+        Task<CartDTO> GetCartAsync(string userId);
 
-        OrderDetailsDTO GetOrder(int orderId);
+        Task<OrderDetailsDTO> GetOrderAsync(int orderId);
 
-        List<OrderSummaryDTO> GetOrders(string userId);
+        Task<List<OrderSummaryDTO>> GetOrdersAsync(string userId);
 
-        void EnsureOrdersInitialized(string userId);
+        Task EnsureOrdersInitializedAsync(string userId);
     }
 }

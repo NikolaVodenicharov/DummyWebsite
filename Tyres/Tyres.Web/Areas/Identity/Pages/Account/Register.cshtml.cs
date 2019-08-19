@@ -93,7 +93,7 @@ namespace Tyres.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, RoleConstants.LoggedUser);
-                    this.sellService.EnsureOrdersInitialized(user.Id);
+                    await this.sellService.EnsureOrdersInitializedAsync(user.Id);
 
                     _logger.LogInformation("User created a new account with password.");
 

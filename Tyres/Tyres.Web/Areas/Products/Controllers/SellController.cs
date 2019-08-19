@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Tyres.Data.Models;
 using Tyres.Service.Interfaces;
 using Tyres.Shared.DataTransferObjects.Sells;
@@ -22,14 +23,14 @@ namespace Tyres.Web.Areas.Products.Controllers
         }
 
         [HttpPost]      
-        public IActionResult AddProduct(ItemDTO model)
+        public async Task<IActionResult> AddProduct(ItemDTO model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var isSuccessfulAdded = this.sellService.AddToCart(model, this.GetUserId());
+            var isSuccessfulAdded = await this.sellService.AddToCartAsync(model, this.GetUserId());
             if (!isSuccessfulAdded)
             {
                 TempData.AddErrrorMessage("Adding product was unsuccessful.");
@@ -40,16 +41,16 @@ namespace Tyres.Web.Areas.Products.Controllers
             return RedirectToAction(nameof(GetCart));
         }
 
-        public IActionResult GetCart()
+        public async Task<IActionResult> GetCart()
         {
-            var cart = this.sellService.GetCart(this.GetUserId());
+            var cart = await this.sellService.GetCartAsync(this.GetUserId());
 
             return View(cart);
         }
 
-        public IActionResult Ordering()
+        public async Task<IActionResult> Ordering()
         {
-            var isSuccessfulOrdered = this.sellService.Ordering(this.GetUserId());
+            var isSuccessfulOrdered = await this.sellService.OrderingAsync(this.GetUserId());
             if (!isSuccessfulOrdered)
             {
                 TempData.AddErrrorMessage("Ordering was unsuccessful.");
@@ -60,16 +61,16 @@ namespace Tyres.Web.Areas.Products.Controllers
             return RedirectToAction(nameof(GetOrders));
         }
 
-        public IActionResult GetOrder(int orderId)
+        public async Task<IActionResult> GetOrder(int orderId)
         {
-            var model = this.sellService.GetOrder(orderId);
+            var model = await this.sellService.GetOrderAsync(orderId);
 
             return View(model);
         }
 
-        public IActionResult GetOrders()
+        public async Task<IActionResult> GetOrders()
         {
-            var model = this.sellService.GetOrders(this.GetUserId());
+            var model = await this.sellService.GetOrdersAsync(this.GetUserId());
 
             return View(model);
         }

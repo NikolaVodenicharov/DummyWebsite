@@ -1,0 +1,80 @@
+﻿@model CreateTyreDTO<SelectListItem>
+@{
+    ViewData["Title"] = "CreateTyre";
+}
+
+<h1>CreateTyre</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-area="Workers" asp-controller="Vendor" asp-action="CreateTyre">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Brand"></label>
+                <input asp-for="Brand" class="form-control" />
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Width"></label>
+                <select asp-for="Width" asp-items="@Model.Widths" class="form-control">Width</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ratio"></label>
+                <select asp-for="Ratio" asp-items="@Model.Ratios" class="form-control">Ratio</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Diameter"></label>
+                <select asp-for="Diameter" asp-items="@Model.Diameters" class="form-control">Diameter</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Season"></label>
+                <select asp-for="Season" asp-items="@Model.Seasons" class="form-control">Season</select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Speed"></label>
+                <select asp-for="Speed" asp-items="@Model.Speeds" class="form-control">Width</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Load"></label>
+                <select asp-for="Load" asp-items="@Model.Loads" class="form-control">Ratio</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FuelEfficient"></label>
+                <select asp-for="FuelEfficient" asp-items="@Model.FuelEfficients" class="form-control">Diameter</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WetGrip"></label>
+                <select asp-for="WetGrip" asp-items="@Model.WetGrips" class="form-control">Season</select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Noice"></label>
+                <select asp-for="Noice" asp-items="@Model.Noices" class="form-control">Season</select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

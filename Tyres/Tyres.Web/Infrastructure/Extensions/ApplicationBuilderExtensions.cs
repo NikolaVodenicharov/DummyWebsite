@@ -87,7 +87,7 @@ namespace Tyres.Web.Infrastructure.Extensions
                         if (result.Succeeded)
                         {
                             await userManager.AddToRoleAsync(user, RoleConstants.Administrator);
-                            sellService.EnsureOrdersInitialized(user.Id);
+                            await sellService.EnsureOrdersInitializedAsync(user.Id);
                         }
                     })
                     .Wait();

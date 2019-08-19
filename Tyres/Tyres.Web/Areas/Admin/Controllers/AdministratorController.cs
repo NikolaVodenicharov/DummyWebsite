@@ -28,9 +28,9 @@ namespace Tyres.Web.Areas.Admin.Controllers
             this.userService = userService;
         }
 
-        public IActionResult AllUsers(int page = 1)
+        public async Task<IActionResult> AllUsers(int page = 1)
         {
-            var model = this.userService.All(page);
+            var model = await this.userService.AllAsync(page);
 
             return View(model);
         }

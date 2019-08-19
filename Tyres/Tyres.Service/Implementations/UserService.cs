@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Tyres.Data;
 using Tyres.Service.Constants;
 using Tyres.Service.Interfaces;
@@ -16,15 +18,15 @@ namespace Tyres.Service.Implementations
         {
         }
 
-        public List<UserSummaryDTO> All(int page = 1)
+        public async Task<List<UserSummaryDTO>> AllAsync(int page = 1)
         {
-            return base.db
+            return await base.db
                 .Users
                 .OrderBy(u => u.UserName)
                 .Skip(PageConstants.PageSize * (page - 1))
                 .Take(PageConstants.PageSize)
                 .ProjectTo<UserSummaryDTO>(base.mapper.ConfigurationProvider)
-                .ToList();
+                .ToListAsync();
         }
     }
 }
