@@ -57,6 +57,9 @@ namespace Tyres.Web
                 .AddSession();
 
             services
+                .AddMemoryCache();
+
+            services
                 .AddDomainServices();
 
             services

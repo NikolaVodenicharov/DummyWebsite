@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +15,27 @@ namespace Tyres.Web.Areas.Products.Controllers
     [Area("Products")]
     public class TyreController : Controller
     {
-        private ITyreService tyreService;
+        private readonly ITyreService tyreService;
+        private readonly IMemoryCache memoryCache;
 
-        public TyreController(ITyreService tyreService)
+        public TyreController(ITyreService tyreService, IMemoryCache memoryCache)
         {
             this.tyreService = tyreService;
+            this.memoryCache = memoryCache;
         }
 
         public IActionResult Index()
         {
-            var model = this.GenerateTyreSearchForm();
+            var model = this.memoryCache.GetOrCreate("TyreSearchForm", entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(12);
+                return this.GenerateTyreSearchForm();
+            });
+
+
+            //var model = this.GenerateTyreSearchForm();
+
+
             return View(model);
         }
 
