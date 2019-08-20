@@ -21,20 +21,20 @@ namespace Tyres.Web.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly ISellService sellService;
+        private readonly IOrderService orderService;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ISellService sellService)
+            IOrderService orderService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            this.sellService = sellService;
+            this.orderService = orderService;
         }
 
         [BindProperty]
@@ -93,7 +93,7 @@ namespace Tyres.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, RoleConstants.LoggedUser);
-                    await this.sellService.EnsureOrdersInitializedAsync(user.Id);
+                    await this.orderService.EnsureOrdersInitializedAsync(user.Id);
 
                     _logger.LogInformation("User created a new account with password.");
 

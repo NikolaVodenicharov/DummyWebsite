@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyres.Data", "Tyres.Data\Ty
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyres.Service", "Tyres.Service\Tyres.Service.csproj", "{36FCFC61-834C-441D-BF01-90DE191BA8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tyres.Shared", "Tyres.Shared\Tyres.Shared.csproj", "{9A92ED41-F6A2-4CE7-AEB3-AB3DEDA127E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyres.Shared", "Tyres.Shared\Tyres.Shared.csproj", "{9A92ED41-F6A2-4CE7-AEB3-AB3DEDA127E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -13,12 +13,12 @@ namespace Tyres.Web.Areas.Products.Controllers
     [Authorize]
     public class SellController : Controller
     {
-        private readonly ISellService sellService;
+        private readonly IOrderService orderService;
         private readonly UserManager<User> userManager;
 
-        public SellController(ISellService sellService, UserManager<User> userManager)
+        public SellController(IOrderService orderService, UserManager<User> userManager)
         {
-            this.sellService = sellService;
+            this.orderService = orderService;
             this.userManager = userManager;
         }
 
@@ -30,7 +30,7 @@ namespace Tyres.Web.Areas.Products.Controllers
                 return BadRequest();
             }
 
-            var isSuccessfulAdded = await this.sellService.AddToCartAsync(model, this.GetUserId());
+            var isSuccessfulAdded = await this.orderService.AddToCartAsync(model, this.GetUserId());
             if (!isSuccessfulAdded)
             {
                 TempData.AddErrrorMessage("Adding product was unsuccessful.");
@@ -43,14 +43,14 @@ namespace Tyres.Web.Areas.Products.Controllers
 
         public async Task<IActionResult> GetCart()
         {
-            var cart = await this.sellService.GetCartAsync(this.GetUserId());
+            var cart = await this.orderService.GetCartAsync(this.GetUserId());
 
             return View(cart);
         }
 
         public async Task<IActionResult> Ordering()
         {
-            var isSuccessfulOrdered = await this.sellService.OrderingAsync(this.GetUserId());
+            var isSuccessfulOrdered = await this.orderService.OrderingAsync(this.GetUserId());
             if (!isSuccessfulOrdered)
             {
                 TempData.AddErrrorMessage("Ordering was unsuccessful.");
@@ -63,14 +63,14 @@ namespace Tyres.Web.Areas.Products.Controllers
 
         public async Task<IActionResult> GetOrder(int orderId)
         {
-            var model = await this.sellService.GetOrderAsync(orderId);
+            var model = await this.orderService.GetOrderAsync(orderId);
 
             return View(model);
         }
 
         public async Task<IActionResult> GetOrders()
         {
-            var model = await this.sellService.GetOrdersAsync(this.GetUserId());
+            var model = await this.orderService.GetOrdersAsync(this.GetUserId());
 
             return View(model);
         }

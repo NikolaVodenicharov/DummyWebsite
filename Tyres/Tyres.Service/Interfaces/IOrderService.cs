@@ -14,5 +14,17 @@ namespace Tyres.Service.Interfaces
         Task<OrderProcessingDetailsDTO> GetProcessingOrderDetailsAsync(int orderId);
 
         Task ChangeOrderStatusAsync(int orderId, OrderStatus status);
+
+        Task<bool> AddToCartAsync(ItemDTO model, string userId);
+
+        Task<bool> OrderingAsync(string userId);
+
+        Task<CartDTO> GetCartAsync(string userId);
+
+        Task<OrderDetailsDTO> GetOrderAsync(int orderId);
+
+        Task<List<OrderSummaryDTO>> GetOrdersAsync(string userId);
+
+        Task EnsureOrdersInitializedAsync(string userId);
     }
 }

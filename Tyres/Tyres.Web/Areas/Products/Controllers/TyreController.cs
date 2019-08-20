@@ -15,6 +15,8 @@ namespace Tyres.Web.Areas.Products.Controllers
     [Area("Products")]
     public class TyreController : Controller
     {
+        private const string CacheKeyTyreSearchForm = "TyreSearchForm";
+
         private readonly ITyreService tyreService;
         private readonly IMemoryCache memoryCache;
 
@@ -26,15 +28,11 @@ namespace Tyres.Web.Areas.Products.Controllers
 
         public IActionResult Index()
         {
-            var model = this.memoryCache.GetOrCreate("TyreSearchForm", entry =>
+            var model = this.memoryCache.GetOrCreate(CacheKeyTyreSearchForm, entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(12);
                 return this.GenerateTyreSearchForm();
             });
-
-
-            //var model = this.GenerateTyreSearchForm();
-
 
             return View(model);
         }

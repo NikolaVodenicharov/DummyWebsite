@@ -54,7 +54,7 @@ namespace Tyres.Web.Infrastructure.Extensions
             {
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
-                var sellService = serviceScope.ServiceProvider.GetService<ISellService>();
+                var orderService = serviceScope.ServiceProvider.GetService<IOrderService>();
 
                 Task
                     .Run(async () =>
@@ -87,7 +87,7 @@ namespace Tyres.Web.Infrastructure.Extensions
                         if (result.Succeeded)
                         {
                             await userManager.AddToRoleAsync(user, RoleConstants.Administrator);
-                            await sellService.EnsureOrdersInitializedAsync(user.Id);
+                            await orderService.EnsureOrdersInitializedAsync(user.Id);
                         }
                     })
                     .Wait();
