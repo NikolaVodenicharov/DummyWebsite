@@ -39,10 +39,17 @@ namespace Tyres.Web.Areas.Workers.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ChangeOrderStatus(int orderId, OrderStatus status)
+        public async Task<IActionResult> ProcessingOrder(int orderId)
         {
-            await this.vendorService.ChangeOrderStatusAsync(orderId, status);
+            var isSuccessfulProcessed = await this.vendorService.ProcessingOrder(orderId);
+
+            if (!isSuccessfulProcessed)
+            {
+                TempData.AddErrrorMessage("Adding product was unsuccessful.");
+                return RedirectToAction(nameof(GetProcessingOrderDetails), new { orderId });
+            }
+
+            TempData.AddSuccessMessage("Adding product was successful.");
 
             return RedirectToAction(nameof(GetProcessingOrders));
         }

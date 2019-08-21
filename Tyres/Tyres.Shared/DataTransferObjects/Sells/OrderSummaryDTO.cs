@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Tyres.Data.Enums.TyreEnums;
+using Tyres.Data.Enums;
 
 namespace Tyres.Shared.DataTransferObjects.Sells
 {

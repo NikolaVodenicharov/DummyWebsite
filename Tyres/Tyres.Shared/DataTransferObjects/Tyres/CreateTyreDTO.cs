@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Tyres.Data.Enums.TyreEnums;
-using Tyres.Products.Data.Models;
 using static Tyres.Data.Constants.Validations.TyreValidationConstants;
 
 namespace Tyres.Shared.DataTransferObjects.Tyres

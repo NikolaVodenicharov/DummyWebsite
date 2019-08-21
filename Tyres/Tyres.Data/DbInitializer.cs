@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Tyres.Data.Enums.TyreEnums;
 using Tyres.Data.Models.Products;
-using Tyres.Products.Data.Models;
 
 namespace Tyres.Data
 {
@@ -14,7 +12,16 @@ namespace Tyres.Data
         {
             db.Database.EnsureCreated();
 
+
             TyreSeeder(db);
+        }
+
+        private static void ProductTypeSeeder(TyresDbContext db)
+        {
+            if (db.Tyres.Any())
+            {
+                return;
+            }
         }
 
         private static void TyreSeeder(TyresDbContext db)

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using Tyres.Data.Constants.Validations;
-using Tyres.Data.Enums.TyreEnums;
+using Tyres.Data.Enums;
 
 namespace Tyres.Data.Models.Orders
 {

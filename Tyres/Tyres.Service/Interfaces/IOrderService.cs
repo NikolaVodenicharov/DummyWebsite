@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Tyres.Data.Enums.TyreEnums;
+using Tyres.Data.Enums;
 using Tyres.Service.Constants;
 using Tyres.Shared.DataTransferObjects.Sells;
 using Tyres.Shared.DataTransferObjects.Vendor;
@@ -26,5 +26,7 @@ namespace Tyres.Service.Interfaces
         Task<List<OrderSummaryDTO>> GetOrdersAsync(string userId);
 
         Task EnsureOrdersInitializedAsync(string userId);
+
+        Task<bool> ProcessingOrder(int orderId);
     }
 }

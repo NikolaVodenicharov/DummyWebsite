@@ -12,10 +12,16 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.ProductName</td>
+                <td>@item.ProductType.ToString()</td>
                 <td>@item.Price.ToMoney()</td>
                 <td>@item.Quantity</td>
             </tr>
         }
     </tbody>
 </table>
+<br />
+
+<div>
+    <span style="font-weight:bold">Total:</span> @Model.Sum(i => i.Price * i.Quantity).ToMoney()
+</div>
+<br />

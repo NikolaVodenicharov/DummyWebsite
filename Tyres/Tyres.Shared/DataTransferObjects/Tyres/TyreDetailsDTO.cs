@@ -1,5 +1,6 @@
-﻿using Tyres.Data.Enums.TyreEnums;
-using Tyres.Products.Data.Models;
+﻿using Tyres.Data.Enums;
+using Tyres.Data.Enums.TyreEnums;
+using Tyres.Data.Models.Products;
 using Tyres.Shared.Mappings;
 
 namespace Tyres.Shared.DataTransferObjects.Tyres
@@ -8,7 +9,7 @@ namespace Tyres.Shared.DataTransferObjects.Tyres
     {
         public int Id { get; set; }
 
-        public string ProductName { get; set; }
+        public ProductType ProductType { get; } = ProductType.Tyre;
 
         public string Brand { get; set; }
 

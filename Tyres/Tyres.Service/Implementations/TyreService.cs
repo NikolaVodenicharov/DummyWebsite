@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tyres.Data;
 using Tyres.Data.Enums.TyreEnums;
-using Tyres.Products.Data.Models;
+using Tyres.Data.Models.Products;
 using Tyres.Service.Interfaces;
 using Tyres.Shared.DataTransferObjects.Tyres;
 using static Tyres.Service.Constants.PageConstants;

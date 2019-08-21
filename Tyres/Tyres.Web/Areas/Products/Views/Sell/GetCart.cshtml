@@ -3,17 +3,14 @@
     ViewData["Title"] = "My cart";
 }
 
-<h1>@ViewData["Title"]</h1>
-<br />
 <div>
     <a class="btn btn-primary" asp-area="Products" asp-controller="Sell" asp-action="GetOrders">My orders</a>
-
 </div>
+<br />
+
+<h1>@ViewData["Title"]</h1>
 <br />
 
 @await Html.PartialAsync("~/Areas/Products/Views/Sell/_ItemsTable.cshtml", Model.Items)
 
-<div>
-    <span style="font-weight:bold">Total:</span> @Model.Items.Sum(i => i.Price).ToMoney()
-</div>
-<a class="btn btn-primary" asp-area="Products" asp-controller="Sell" asp-action="Ordering">Order</a>
+<a class="btn btn-success" asp-area="Products" asp-controller="Sell" asp-action="Ordering">Order</a>

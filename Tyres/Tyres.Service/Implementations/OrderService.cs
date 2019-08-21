@@ -1,18 +1,15 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Tyres.Data;
-using Tyres.Data.Enums.TyreEnums;
+using Tyres.Data.Enums;
 using Tyres.Data.Models;
 using Tyres.Data.Models.Orders;
 using Tyres.Data.Models.Products;
-using Tyres.Products.Data.Models;
 using Tyres.Service.Interfaces;
 using Tyres.Shared.DataTransferObjects.Sells;
 using Tyres.Shared.DataTransferObjects.Vendor;
@@ -69,7 +66,6 @@ namespace Tyres.Service.Implementations
                 UserLastName = order.User.LastName,
                 DeliveryAddress = order.DeliveryAddress,
                 Status = order.Status,
-                Statuses = GetOrderStatusValuesItems(),
                 Date = order.Date,
                 Items = order.Items
                         .AsQueryable()
@@ -92,30 +88,36 @@ namespace Tyres.Service.Implementations
             var isProductCorrectTask = this.IsProductCorrectAsync(model);
             var isUserExistTask = this.IsUserExistAsync(userId);
 
-            if (!await isProductCorrectTask || !await isUserExistTask)
+            if (!isProductCorrectTask || !await isUserExistTask)
             {
                 return false;
             }
 
-            var notOrdered = db
+            var cart = db
                 .Users
                 .Where(u => u.Id == userId)
                 .Select(u => u
                     .Orders
-                    .FirstOrDefault(o => o.Status == OrderStatus.NotOrdered))
+                    .Last())
                 .FirstOrDefault();
+
+            if (cart.Status != OrderStatus.NotOrdered)
+            {
+                return false;
+            }
+
 
             var cartItem = new Item
             {
                 ProductId = model.ProductId,
-                ProductName = model.ProductName,
+                ProductType = model.ProductType,
                 Price = model.Price,
                 Quantity = model.Quantity,
-                OrderId = notOrdered.Id
+                OrderId = cart.Id
             };
 
             db.Items.Add(cartItem);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return true;
         }
@@ -161,12 +163,17 @@ namespace Tyres.Service.Implementations
 
         public async Task<bool> OrderingAsync(string userId)
         {
-            if (!await this.IsUserExistAsync(userId))
+            var deliveryAddress = await db
+                .Users
+                .Where(u => u.Id == userId)
+                .Select(u => u.DeliveryAddress)
+                .FirstOrDefaultAsync();
+
+            var isUserCorrect = deliveryAddress != null;
+            if (!isUserCorrect)
             {
                 return false;
             }
-
-            var userTask = db.Users.FindAsync(userId);
 
             var orders = await db
                 .Users
@@ -174,16 +181,62 @@ namespace Tyres.Service.Implementations
                 .Select(u => u.Orders)
                 .FirstOrDefaultAsync();
 
-            var cartOrder = orders.Last();
-            cartOrder.Date = DateTime.UtcNow;
-            cartOrder.Status = OrderStatus.Processing;
-            cartOrder.DeliveryAddress = (await userTask).DeliveryAddress;
+            var cart = await EnsureCartExistAsync(orders, userId);
 
-            orders.Add(this.CreateCart(userId));
+            if (await IsOrderEmpty(cart.Id))
+            {
+                return false;
+            }
+
+            TransformCartToOrder(deliveryAddress, cart);
+            AddNewCart(userId, orders);
 
             await db.SaveChangesAsync();
 
             return true;
+        }
+        private async Task<Order> EnsureCartExistAsync(IList<Order> orders, string userId)
+        {
+            var anyOrder = orders.Count > 0;
+            if (anyOrder)
+            {
+                var lastOrder = orders.Last();
+
+                var isCart = lastOrder.Status == OrderStatus.NotOrdered;
+                if (isCart)
+                {
+                    return lastOrder;
+                }
+            }
+
+            var cart = this.CreateCart(userId);
+            orders.Add(cart);
+            await db.SaveChangesAsync();
+
+            return cart;
+        }
+        private async Task<bool> IsOrderEmpty(int orderId)
+        {
+            var itemsCount = await db
+                .Orders
+                .Where(o => o.Id == orderId)
+                .Select(o => o.Items.Count)
+                .FirstOrDefaultAsync();
+
+            var isEmpy = itemsCount == 0;
+
+            return isEmpy;
+        }
+        private static void TransformCartToOrder(string deliveryAddress, Order cart)
+        {
+            cart.Date = DateTime.UtcNow;
+            cart.Status = OrderStatus.Processing;
+            cart.DeliveryAddress = deliveryAddress;
+        }
+        private void AddNewCart(string userId, IList<Order> orders)
+        {
+            var cart = this.CreateCart(userId);
+            orders.Add(cart);
         }
 
         public async Task<OrderDetailsDTO> GetOrderAsync(int orderId)
@@ -231,7 +284,7 @@ namespace Tyres.Service.Implementations
                     Id = o.Id,
                     Date = o.Date,
                     Status = o.Status,
-                    Sum = o.Items.Sum(i => i.Price)
+                    Sum = o.Items.Sum(i => i.Price * i.Quantity)
                 })
                 .ToListAsync();
 
@@ -261,15 +314,9 @@ namespace Tyres.Service.Implementations
             await db.SaveChangesAsync();
         }
 
-        private async Task<bool> IsProductCorrectAsync(ItemDTO model)
+        private bool IsProductCorrectAsync(ItemDTO model)
         {
-            var type = Assembly
-                .GetAssembly(typeof(Tyre))
-                .GetTypes()
-                .Where(t => t.Name == model.ProductName)
-                .FirstOrDefault();
-
-            var product = await db.FindAsync(type, model.ProductId);
+            var product = this.FindProduct(model.ProductType, model.ProductId);
 
             var isProductExist = product != null;
             if (!isProductExist)
@@ -277,10 +324,8 @@ namespace Tyres.Service.Implementations
                 return false;
             }
 
-            var castedProduct = (IProduct)product;
-
-            var isPriceCorrect = castedProduct.Price == model.Price;
-            var isQuantityAvailable = castedProduct.Quantity >= model.Quantity;
+            var isPriceCorrect = product.Price == model.Price;
+            var isQuantityAvailable = product.Quantity >= model.Quantity;
             if (!isPriceCorrect || !isQuantityAvailable)
             {
                 return false;
@@ -313,28 +358,79 @@ namespace Tyres.Service.Implementations
             };
         }
 
-        private List<SelectListItem> GetOrderStatusValuesItems()
+        public async Task<bool> ProcessingOrder(int orderId) // SendProducts ?
         {
-            var enumElements = Enum.GetValues(typeof(OrderStatus));
-            var items = new List<SelectListItem>(enumElements.Length);
-
-            foreach (var element in enumElements)
+            var isSuccess = this.DecreaseProductsQuantity(orderId);
+            if (!isSuccess)
             {
-                var enumValue = ((int)element).ToString();
-
-                var item = new SelectListItem
-                {
-                    Text = element.ToString(),
-                    Value = enumValue,
-                };
-
-                items.Add(item);
+                return false;
             }
 
-            items.RemoveAt(0);
+            await this.ChangeOrderStatusAsync(orderId, OrderStatus.Shipping);
 
-            return items;
+            return true;
         }
 
+        private bool DecreaseProductsQuantity(int orderId)
+        {
+            var order = db
+                .Orders
+                .Where(o => o.Id == orderId)
+                .Include(o => o.Items)
+                .FirstOrDefault();
+
+            if (order == null)
+            {
+                return false;
+            }
+
+            foreach (var item in order.Items)
+            {
+                var product = this.FindProduct(item.ProductType, item.ProductId);
+
+                var isProductExist = product != null;
+                if (!isProductExist)
+                {
+                    return false;
+                }
+
+                var isQuantityAvailable = product.Quantity >= item.Quantity;
+                if (!isQuantityAvailable)
+                {
+                    return false;
+                }
+
+                product.Quantity -= item.Quantity;
+            }
+
+            db.SaveChanges();
+
+            return true;
+        }
+
+        private IProduct FindProduct(ProductType productType, int productId)
+        {
+            IProduct product = null;
+
+            switch (productType)
+            {
+                //TODO: test the time
+                case ProductType.Tyre:
+                    product = TestFindProduct(db.Tyres.Cast<IProduct>(), productId);
+                    break;
+                default:
+                    break;
+            }
+        
+            return product;
+        }
+        private IProduct TestFindProduct(IQueryable<IProduct> dbSet, int productId)
+        {
+            var result = dbSet
+                .Where(p => p.Id == productId)
+                .FirstOrDefault();
+
+            return result;
+        }
     }
 }

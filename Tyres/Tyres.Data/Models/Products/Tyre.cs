@@ -4,13 +4,11 @@ using Tyres.Data.Enums.TyreEnums;
 using Tyres.Data.Models.Products;
 using static Tyres.Data.Constants.Validations.TyreValidationConstants;
 
-namespace Tyres.Products.Data.Models
+namespace Tyres.Data.Models.Products
 {
     public class Tyre : IProduct
     {
         public int Id { get; set; }
-
-        public string ProductName { get; } = nameof(Tyre);
 
         [Required, MaxLength(BrandMaxLength)]
         public string Brand { get; set; }

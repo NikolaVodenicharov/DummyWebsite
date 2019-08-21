@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tyres.Data.Enums.TyreEnums
+namespace Tyres.Data.Enums
 {
     public enum OrderStatus
     {

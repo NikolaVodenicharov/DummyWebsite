@@ -10,8 +10,6 @@ namespace Tyres.Data.Models.Products
     {
         int Id { get; set; }
 
-        string ProductName { get; }
-
         [Column(TypeName = "decimal(18,2)")]
         [Range(0, double.MaxValue)]
         decimal Price { get; set; }

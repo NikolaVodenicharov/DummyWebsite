@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Tyres.Data.Enums;
 using Tyres.Shared.DataTransferObjects.Sells;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Tyres.Data.Enums.TyreEnums;
-using System;
 
 namespace Tyres.Shared.DataTransferObjects.Vendor
 {
@@ -17,8 +16,6 @@ namespace Tyres.Shared.DataTransferObjects.Vendor
         public string DeliveryAddress { get; set; }
 
         public OrderStatus Status { get; set; }
-        public IEnumerable<SelectListItem> Statuses { get; set; }
-
 
         public IList<ItemDTO> Items { get; set; }
     }

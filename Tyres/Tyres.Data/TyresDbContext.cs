@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Tyres.Data.Models;
 using Tyres.Data.Models.Orders;
-using Tyres.Products.Data.Models;
+using Tyres.Data.Models.Products;
 
 namespace Tyres.Data
 {

@@ -10,17 +10,10 @@
     <p>Date: @Model.Date</p>
     <p>Receiver: @Model.UserFirstName @Model.UserLastName</p>
     <p>Delivery address: @Model.DeliveryAddress</p>
+    <p>Status: @Model.Status</p>
 </div>
-<div class="col-md-4">
-    <form asp-controller="Vendor" asp-action="ChangeOrderStatus" asp-route-orderId="@Model.OrderId" method="post">
-        <div class="form-group">
-            <label asp-for="Status"></label>
-            <select asp-for="Status" asp-items="@Model.Statuses" class="form-control">Season</select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Chage status</button>
-    </form>
-    <br />
+<div>
+    <a class="btn btn-success" asp-controller="Vendor" asp-action="ProcessingOrder" asp-route-orderId="@Model.OrderId" method="post">Processing the order</a>
 </div>
 <br />
 
@@ -38,7 +31,7 @@
         {
             <tr>
                 <td>@item.ProductId</td>
-                <td>@item.ProductName</td>
+                <td>@item.ProductType.ToString()</td>
                 <td>@item.Price.ToMoney()</td>
                 <td>@item.Quantity</td>
             </tr>
