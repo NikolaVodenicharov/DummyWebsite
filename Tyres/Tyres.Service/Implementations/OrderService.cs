@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Tyres.Data;
 using Tyres.Data.Enums;
@@ -358,7 +359,7 @@ namespace Tyres.Service.Implementations
             };
         }
 
-        public async Task<bool> ProcessingOrder(int orderId) // SendProducts ?
+        public async Task<bool> ProcessingOrder(int orderId)
         {
             var isSuccess = this.DecreaseProductsQuantity(orderId);
             if (!isSuccess)
@@ -407,14 +408,12 @@ namespace Tyres.Service.Implementations
 
             return true;
         }
-
         private IProduct FindProduct(ProductType productType, int productId)
         {
             IProduct product = null;
 
             switch (productType)
             {
-                //TODO: test the time
                 case ProductType.Tyre:
                     product = TestFindProduct(db.Tyres.Cast<IProduct>(), productId);
                     break;

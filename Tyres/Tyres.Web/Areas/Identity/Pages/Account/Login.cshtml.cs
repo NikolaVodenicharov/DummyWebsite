@@ -10,12 +10,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Tyres.Data.Models;
+using System.Text.RegularExpressions;
 
 namespace Tyres.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
+        private const string ReferrerRouteKey = "route";
+
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
@@ -56,24 +59,25 @@ namespace Tyres.Web.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl = returnUrl ?? Url.Content("~/");
+            //returnUrl = returnUrl ?? Url.Content("~/");
 
-            // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            ReturnUrl = returnUrl;
+            //ReturnUrl = returnUrl;
+
+            TempData[ReferrerRouteKey] = ExtractRefererRoute();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            //returnUrl = returnUrl ?? Url.Content("~/");
+
+            returnUrl = TempData[ReferrerRouteKey].ToString();
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
@@ -96,8 +100,30 @@ namespace Tyres.Web.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
+
+        private string ExtractRefererRoute()
+        {
+            var RefererRequestHeaderKey = "Referer";
+            var HostRequestHeaderKey = "Host";
+
+            var headers = HttpContext.Request.Headers;
+
+            var refererUrl = headers[RefererRequestHeaderKey];
+            var host = headers[HostRequestHeaderKey];
+
+            var regex = $"(?<={host}).*$";
+            var match = Regex.Match(refererUrl, regex);
+
+            if (!match.Success)
+            {
+                return null;
+            }
+
+            var route = match.Value;
+            return route;
+        }
+
     }
 }
