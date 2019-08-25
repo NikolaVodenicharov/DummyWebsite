@@ -16,14 +16,6 @@ namespace Tyres.Data
             TyreSeeder(db);
         }
 
-        private static void ProductTypeSeeder(TyresDbContext db)
-        {
-            if (db.Tyres.Any())
-            {
-                return;
-            }
-        }
-
         private static void TyreSeeder(TyresDbContext db)
         {
             if (db.Tyres.Any())
@@ -60,21 +52,21 @@ namespace Tyres.Data
             var random = new Random();
             var tyres = new List<Tyre>();
 
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 500; i++)
             {
                 var brandIndex = random.Next(brands.Length);
                 var modelIndex = random.Next(models.Length);
-                var widthIndex = random.Next(widths.Length);
-                var ratioIndex = random.Next(ratios.Length);
-                var diameterIndex = random.Next(diameters.Length);
-                var seasonIndex = random.Next(seasons.Length);
+                var widthIndex = random.Next(1, widths.Length);
+                var ratioIndex = random.Next(1, ratios.Length);
+                var diameterIndex = random.Next(1, diameters.Length);
+                var seasonIndex = random.Next(1, seasons.Length);
 
                 var tyre = new Tyre
                 {
                     Brand = brands[brandIndex],
                     Model = models[modelIndex],
                     Price = random.Next(100, 200),
-                    Quantity = random.Next(2, 30),
+                    Quantity = random.Next(10, 30),
                     Width = (Width)widths.GetValue(widthIndex),
                     Ratio = (Ratio)ratios.GetValue(ratioIndex),
                     Diameter = (Diameter)diameters.GetValue(diameterIndex),

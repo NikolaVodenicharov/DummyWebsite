@@ -236,4 +236,3 @@ C:\Users\WorkStation\Desktop\TyresBranch\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres
 C:\Users\WorkStation\Desktop\TyresBranch\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.csproj.CopyComplete
 C:\Users\WorkStation\Desktop\TyresBranch\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.dll
 C:\Users\WorkStation\Desktop\TyresBranch\Tyres.Web\obj\Debug\netcoreapp2.2\Tyres.Web.pdb
-C:\Users\WorkStation\Desktop\Projects\Tyres\Tyres.Web\obj\Debug\netcoreapp2.2\Razor\Areas\Products\Views\Tyre\_AllPaging.g.cshtml.cs
