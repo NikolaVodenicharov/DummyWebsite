@@ -51,9 +51,10 @@
 }
 
 <nav aria-label="Page navigation example" style="text-align: center">
-    <ul class="pagination pagination-lg">
+    <ul class="pagination pagination-lg" style="text-align: center">
         <li class="page-item @disablePrevious">
-            <a class="page-link" href="/Tyre/all?page=@Model.PreviousPage">Previous</a>
+            <a class="page-link"  href="/Products/Tyre/All?Width=@Model.Search.Width&Ratio=@Model.Search.Ratio&Diameter=@Model.Search.Ratio&Season=@Model.Search.Season&Page=@Model.PreviousPage">
+                Previous</a>
         </li>
 
         <li class="page-item active">
@@ -61,7 +62,10 @@
         </li>
 
         <li class="page-item @disableNext">
-            <a class="page-link" href="/Tyre/all?page=@Model.NextPage">Next</a>
+            <a class="page-link" href="/Products/Tyre/All?Width=@Model.Search.Width&Ratio=@Model.Search.Ratio&Diameter=@Model.Search.Ratio&Season=@Model.Search.Season&Page=@Model.NextPage">
+                Next
+            </a>
         </li>
+
     </ul>
 </nav>

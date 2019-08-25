@@ -40,7 +40,7 @@ namespace Tyres.Web.Areas.Products.Controllers
         public async Task<IActionResult> All(TyreSearchForm model, int page = PageConstants.DefaultPage)
         {
             var pageCountTask = this.tyreService.GetPagesCount(model.Width, model.Ratio, model.Diameter, model.Season);
-            var tyres = await this.tyreService.GetAllListingAsync(model.Width, model.Ratio, model.Diameter, model.Season, page);
+            var tyresTask = this.tyreService.GetAllListingAsync(model.Width, model.Ratio, model.Diameter, model.Season, page);
 
             var tyreSearchForm = this.GenerateTyreSearchForm(model.Width, model.Ratio, model.Diameter, model.Season);
 
@@ -49,7 +49,7 @@ namespace Tyres.Web.Areas.Products.Controllers
             {
                 Page = page,
                 PagesCount = await pageCountTask,
-                Elements = tyres.ToList(),
+                Elements = (await tyresTask).ToList(),
                 Search = tyreSearchForm
             };
 
@@ -66,9 +66,13 @@ namespace Tyres.Web.Areas.Products.Controllers
         {
             return new TyreSearchForm
             {
-                Widths = GetEnumValuesItems<Width>(Width._195),
+                Width = selectedWidth,
+                Widths = GetEnumValuesItems<Width>(selectedWidth),
+                Ratio = selectedRatio,
                 Ratios = GetEnumValuesItems<Ratio>(selectedRatio),
+                Diameter = selectedDiameter,
                 Diameters = GetEnumValuesItems<Diameter>(selectedDiameter),
+                Season = selectedSeason,
                 Seasons = GetEnumNamesValuesItems<Season>(selectedSeason)
             };
         }
